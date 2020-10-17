@@ -486,3 +486,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+/.idea/Noskin.iml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/modules.xml
+/.idea/vcs.xml
