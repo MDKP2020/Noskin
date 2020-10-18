@@ -1,19 +1,13 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::prefix('groups')->group(base_path('/routes/groups-api.php'));
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::prefix('students')->group(base_path('/routes/students-api.php'));
+
+Route::prefix('years')->group(base_path('/routes/years-api.php'));
+
+Route::prefix('majors')->group(base_path('/routes/majors-api.php'));
+
+Route::prefix('patterns')->group(base_path('/routes/patterns-api.php'));
