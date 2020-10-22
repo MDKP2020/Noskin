@@ -16,6 +16,10 @@ class CreateGroupPatternsTable extends Migration
         Schema::create('group_patterns', function (Blueprint $table) {
             $table->id();
             $table->string("pattern");
+            $table->foreignId("major_id");
+        });
+        Schema::table('group_patterns', function (Blueprint $table) {
+            $table->foreign('major_id')->references('id')->on('majors');
         });
     }
 
