@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\GroupPattern;
+use App\Models\Group;
 
 class Major extends Model
 {
@@ -12,5 +13,9 @@ class Major extends Model
 
     public function groupPatterns() {
         return $this->hasMany(GroupPattern::class);
+    }
+
+    public function groups() {
+        return $this->hasMany(Group::class);
     }
 }
