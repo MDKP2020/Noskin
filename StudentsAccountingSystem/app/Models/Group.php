@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Major;
+use App\Models\GroupPattern;
 
 class Group extends Model
 {
@@ -11,5 +13,9 @@ class Group extends Model
 
     public function major() {
         return $this->belongsTo(Major::class);
+    }
+
+    public function pattern() {
+        return $this->belongsTo(GroupPattern::class);
     }
 }
