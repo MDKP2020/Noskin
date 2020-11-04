@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\GroupPattern;
 use App\Models\Group;
 
+/**
+ * @method static find(int $id)
+ */
 class Major extends Model
 {
     protected $guarded = [];
