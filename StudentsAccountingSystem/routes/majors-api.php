@@ -1,24 +1,15 @@
 <?php
 
+use App\Http\Controllers\MajorsController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-   dd('get all majors');
-});
+Route::get('/', [MajorsController::class, 'getAll']);
 
-Route::get('/{id}', function ($id) {
-    dd('get major with id: ' . $id);
-});
+Route::get('/{id}', [MajorsController::class, 'findById']);
 
-Route::post('/', function () {
-    dd('create majors');
-});
+Route::post('/', [MajorsController::class, 'create']);
 
-Route::put('/{id}', function ($id) {
-    dd('update major with id: ' . $id);
-});
+Route::put('/{id}', [MajorsController::class, 'update']);
 
-Route::delete('/{id}', function ($id) {
-    dd('delete major with id: ' . $id);
-});
+Route::delete('/{id}', [MajorsController::class, 'delete']);
 
