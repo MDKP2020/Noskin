@@ -3,11 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\GroupPattern;
-use App\Models\Group;
 
 /**
  * @method static find(int $id)
+ * @method static where(string $column, string $operation, string $value)
  */
 class Major extends Model
 {

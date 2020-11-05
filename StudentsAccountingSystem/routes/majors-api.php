@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MajorsController::class, 'getAll']);
 
-Route::get('/{id}', [MajorsController::class, 'getOne']);
+Route::get('/{id}', [MajorsController::class, 'findById']);
 
 Route::post('/', [MajorsController::class, 'add']);
 
