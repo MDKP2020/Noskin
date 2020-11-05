@@ -7,7 +7,7 @@ Route::get('/', [MajorsController::class, 'getAll']);
 
 Route::get('/{id}', [MajorsController::class, 'findById']);
 
-Route::post('/', [MajorsController::class, 'add']);
+Route::post('/', [MajorsController::class, 'create']);
 
 Route::put('/{id}', [MajorsController::class, 'update']);
 

@@ -18,7 +18,7 @@ class MajorsController extends Controller
         return $major;
     }
 
-    public function add(Request $request) {
+    public function create(Request $request) {
         if (self::codeExists($request->code)) {
             return self::responseForError("Major with such code already exists");
         }
