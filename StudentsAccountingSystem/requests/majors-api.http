@@ -1,0 +1,27 @@
+GET http://noskin.test1.seschool.ru/api/majors
+
+###
+GET http://noskin.test1.seschool.ru/api/majors/1
+
+###
+POST http://noskin.test1.seschool.ru/api/majors
+Content-Type: application/json
+
+{
+    "code": "1",
+    "name": "test"
+}
+
+###
+
+PUT http://noskin.test1.seschool.ru/api/majors/1
+Content-Type: application/json
+
+{
+    "code": "2",
+    "name": "test"
+}
+
+###
+
+DELETE http://noskin.test1.seschool.ru/api/majors/1

@@ -17,8 +17,8 @@ class CreateStudentToGroupTable extends Migration
             $table->id();
             $table->foreignId('student_id');
             $table->foreignId('group_id');
-            $table->foreignId('start_year');
-            $table->foreignId('end_year')->nullable();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->foreignId('next_group')->nullable();
             $table->foreignId('expel_reason_id')->nullable();
         });
@@ -26,8 +26,6 @@ class CreateStudentToGroupTable extends Migration
         Schema::table('student_to_group', function (Blueprint $table) {
             $table->foreign('student_id')->references('id')->on('students');
             $table->foreign('group_id')->references('id')->on('groups');
-            $table->foreign('start_year')->references('id')->on('academic_years');
-            $table->foreign('end_year')->references('id')->on('academic_years');
             $table->foreign('next_group')->references('id')->on('groups');
             $table->foreign('expel_reason_id')->references('id')->on('expel_reasons');
         });
