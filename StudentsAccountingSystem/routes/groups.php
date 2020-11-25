@@ -19,7 +19,10 @@ Route::get('/{yearId}', function ($yearId) {
 });
 
 Route::get('/{yearId}/new', function ($yearId) {
-    dd('Page: create new group for year: ' . $yearId);
+//    dd('Page: create new group for year: ' . $yearId);
+    $data = [];
+
+    return view('new-group')->with($data);
 });
 
 Route::get('/{yearId}/{id}', function ($yearId, $id) {

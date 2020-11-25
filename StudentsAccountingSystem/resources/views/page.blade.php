@@ -21,21 +21,21 @@
         <a class="nav-link" href="#">К списку групп</a>
 
         <div class="year-picker ml-auto mb-2">
-            <p class="text-light text-center mb-2">Учебный год</p>
+            <label style="width: 150px; margin: 0 auto; display: block" class="text-light mb-2" for="academicYearSelect">Учебный год</label>
 
-            <button type="button" class="btn btn-link" id="year-back-btn"><</button>
+            <div class="d-flex">
+                <button type="button" class="btn btn-link" id="year-back-btn"><</button>
 
-            <div class="btn-group" role="group">
-                <button id="academic-year-dropdown" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    2020-2021
-                </button>
-                <div class="dropdown-menu" aria-labelledby="academic-year-dropdown">
-                    <a class="dropdown-item" href="#">2019-2020</a>
-                    <a class="dropdown-item" href="#">2018-2019</a>
-                </div>
+                    <select class="form-control" id="academicYearSelect">
+                        <option default>2020-2021</option>
+                        <option>Новый уч. год</option>
+                        <option>2019-2020</option>
+                        <option>2018-2019</option>
+                        <option>2017-2018</option>
+                    </select>
+
+                <button type="button" class="btn btn-link" id="year-forward-btn">></button>
             </div>
-
-            <button type="button" class="btn btn-link" id="year-forward-btn">></button>
         </div>
     </div>
 </nav>
