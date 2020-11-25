@@ -42,7 +42,7 @@
 
 {{--    Content     --}}
 <div class="container">
-    <div class="d-flex justify-content-between my-3">
+    <div class="d-flex justify-content-between align-items-center my-3">
         @yield('section-header')
     </div>
 

@@ -8,6 +8,7 @@ Route::get('/{yearId}', function ($yearId) {
     $data = [];
     /*
         в data нужны:
+        - текущий yearId
         - список уч лет (id, value)
         - список направлений (id, value)
         - список курсов (id, value)
@@ -22,7 +23,15 @@ Route::get('/{yearId}/new', function ($yearId) {
 });
 
 Route::get('/{yearId}/{id}', function ($yearId, $id) {
-   dd('Page: groups with id: ' . $id . ' for year: ' . $yearId);
+//   dd('Page: groups with id: ' . $id . ' for year: ' . $yearId);
+    $data = [];
+    /*
+        - текущий yearId
+        - текущий groupId
+        - список уч лет (id, value)
+        - список студентов
+    */
+    return view('students')->with('id', $id);
 });
 
 Route::get('/{yearId}/{id}/student/add', function ($yearId, $id) {
