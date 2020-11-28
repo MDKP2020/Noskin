@@ -22,11 +22,12 @@
                 <div class="form-row align-items-end">
                     <div class="col">
                         <p>Курс</p>
-                        <select class="custom-select">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select name="grade" class="custom-select">
+                            <option value @if(empty($_GET['grade'])) selected @endif>Все</option>
+                            @foreach($grades as $grade)
+                                <option @if(($_GET['grade'] ?? -1) == $grade) selected
+                                        @endif value="{{$grade}}">{{$grade}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col">

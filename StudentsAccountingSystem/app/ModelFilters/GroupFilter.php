@@ -17,4 +17,8 @@ class GroupFilter extends ModelFilter
     public function major($majorId) {
         return $this->where('major_id', $majorId);
     }
+
+    public function grade($grade) {
+        return $this->related('years', 'grade', $grade);
+    }
 }

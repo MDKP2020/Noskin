@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\GroupsToYear;
 use App\Models\Major;
 use Illuminate\Http\Request;
 
 class GroupsController extends Controller
 {
     public function indexPage(Request $request) {
-//        ddd($this->getAll()->toArray());
         $groups = Group::filter($request->all())->get();
+        $grades = GroupsToYear::allGrades();
         $majors = Major::all();
-        return view('groups.index', compact('majors', 'groups'));
+        return view('groups.index', compact('majors', 'groups', 'grades'));
     }
 
     public function createPage() {
@@ -22,6 +23,8 @@ class GroupsController extends Controller
     public function getAll() {
         return Group::with('pattern')
             ->with('students')
-            ->get();
+            ->with('years')
+            ->get()
+            ->append('grade');
     }
 }

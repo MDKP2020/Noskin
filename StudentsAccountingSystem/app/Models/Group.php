@@ -14,17 +14,32 @@ class Group extends Model
     protected $guarded = [];
     public $timestamps = false;
 
-    public function major() {
+    public function major()
+    {
         return $this->belongsTo(Major::class);
     }
 
-    public function pattern() {
+    public function pattern()
+    {
         return $this->belongsTo(GroupPattern::class, 'group_pattern_id', 'id');
     }
 
-    public function students() {
+    public function students()
+    {
         return $this->belongsToMany(Student::class, 'student_to_group', 'group_id', 'student_id')
             ->withPivot('start_date', 'end_date');
+    }
+
+    public function years()
+    {
+        return $this->hasMany(GroupsToYear::class, 'group_id', 'id');
+    }
+
+    public function getGradeAttribute()
+    {
+        if($this->relationLoaded('years')) {
+            return $this->years()->first()->grade ?? null;
+        }
     }
 
     public function modelFilter()
