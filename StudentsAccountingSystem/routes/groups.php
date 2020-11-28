@@ -21,7 +21,13 @@ Route::get('/{yearId}', function ($yearId) {
 Route::get('/{yearId}/new', function ($yearId) {
 //    dd('Page: create new group for year: ' . $yearId);
     $data = [];
-
+    /*
+        - текущий yearId
+        - список уч лет (id, value)
+        - список направлений (id, value)
+        - список курсов (id, value)
+        - список шаблонов названий (?)
+     */
     return view('new-group')->with($data);
 });
 
@@ -38,5 +44,11 @@ Route::get('/{yearId}/{id}', function ($yearId, $id) {
 });
 
 Route::get('/{yearId}/{id}/student/add', function ($yearId, $id) {
-   dd('Page: add student to group with id: ' . $id . ' for year: ' . $yearId );
+//   dd('Page: add student to group with id: ' . $id . ' for year: ' . $yearId );
+    $data = [];
+    /*
+        - текущий yearId
+        - список уч лет (id, value)
+     */
+    return view('new-student')->with('id', $id);
 });
