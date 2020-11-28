@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class MajorsController extends Controller
 {
+    public function indexPage() {
+        return view('majors.index');
+    }
+
     public function getAll() {
         return Major::all();
     }

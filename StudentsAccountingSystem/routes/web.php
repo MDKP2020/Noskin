@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MajorsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return 'Hello, MDKP! Test CI/CD';
 });
+
+Route::get('/majors', [MajorsController::class, 'indexPage'])->name('majors.index');
