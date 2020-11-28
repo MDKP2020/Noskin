@@ -6,14 +6,14 @@
 
 @section('content')
     <div class="row align-items-center">
-        <div class="col">
-            <h1>Направления</h1>
-        </div>
-        <div class="col col-2 text-right">
-            <a href="{{route('majors.create')}}" class="btn btn-primary">
-                Cоздать
-            </a>
-        </div>
+    <div class="col">
+        <h1>Направления</h1>
+    </div>
+    <div class="col col-2 text-right">
+        <a href="{{route('majors.create')}}" class="btn btn-primary">
+            Cоздать
+        </a>
+    </div>
     </div>
     <table class="table table-bordered ">
         <thead class="thead-dark">

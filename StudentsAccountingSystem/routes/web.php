@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GroupsController;
 use App\Http\Controllers\MajorsController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,7 @@ Route::get('/', function () {
 Route::get('/majors', [MajorsController::class, 'indexPage'])->name('majors.index');
 Route::get('/majors/create', [MajorsController::class, 'createPage'])->name('majors.create');
 Route::post('/majors/create', [MajorsController::class, 'createFromForm'])->name('majors.createFromForm');
+
+Route::get('/groups', [GroupsController::class, 'indexPage'])->name('groups.index');
+Route::get('/groups/create', [GroupsController::class, 'createPage'])->name('groups.create');
+
