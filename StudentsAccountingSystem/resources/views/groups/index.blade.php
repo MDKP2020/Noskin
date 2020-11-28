@@ -9,9 +9,9 @@
         <div class="col">
             <h1>Группы</h1>
         </div>
-        <div class="col col-2 text-right">
+        <div class="col col-3 text-right">
             <a href="{{route('groups.create')}}" class="btn btn-primary">
-                Создать
+                Зачислить студента
             </a>
         </div>
     </div>
@@ -70,7 +70,12 @@
             </table>
         </div>
         <div class="card-footer text-muted">
-            2 days ago
+        <div class="row justify-content-end">
+            <div class="cel">
+                <a href="" class="btn btn-primary mr-1">Первести группу на следующий курс</a>
+                <a href="" class="btn btn-outline-dark">Отчислить</a>
+            </div>
+        </div>
         </div>
     </div>
 @endsection
