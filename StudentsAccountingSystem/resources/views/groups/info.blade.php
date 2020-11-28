@@ -15,7 +15,7 @@
             </nav>
         </div>
         <div class="col col-3 text-right">
-            <a href="{{route('groups.create')}}" class="btn btn-primary">
+            <a href="{{route('groups.new', [$group->id])}}" class="btn btn-primary">
                 Зачислить студента
             </a>
         </div>

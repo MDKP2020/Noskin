@@ -27,3 +27,4 @@ Route::get('/groups', [GroupsController::class, 'indexPage'])->name('groups.inde
 Route::get('/groups/create', [GroupsController::class, 'createPage'])->name('groups.create');
 
 Route::get('/groups/{id}', [GroupsController::class, 'groupPage'])->name('groups.info');
+Route::get('/groups/{id}/new', [GroupsController::class, 'newStudent'])->name('groups.new');

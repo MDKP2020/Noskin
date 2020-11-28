@@ -28,6 +28,10 @@ class GroupsController extends Controller
         return view('groups.info', compact('group'));
     }
 
+    public function newStudent(int $id) {
+        $group = $this->getGroup($id);
+        return view('groups.new-students', compact('group'));
+    }
 
     public function createPage()
     {
