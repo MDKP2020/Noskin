@@ -31,7 +31,9 @@
             </div>
         </div>
     </header>
-    @yield('content')
+    <div class="container pt-4">
+        @yield('content')
+    </div>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

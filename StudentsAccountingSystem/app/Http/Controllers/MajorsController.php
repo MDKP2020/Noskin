@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateMajor;
 use App\Models\Major;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,19 @@ class MajorsController extends Controller
     public function indexPage() {
         $majors = $this->getAll();
         return view('majors.index', compact('majors'));
+    }
+
+    public function createPage() {
+        return view('majors.create');
+    }
+
+    public function createFromForm(CreateMajor $request) {
+        $validated = $request->validated();
+        $major = new Major;
+        $major->code = $validated['code'];
+        $major->name = $validated['name'];
+        $major->save();
+        return redirect()->route('majors.index');
     }
 
     public function getAll() {

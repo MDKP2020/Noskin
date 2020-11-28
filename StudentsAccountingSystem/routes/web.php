@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('/majors', [MajorsController::class, 'indexPage'])->name('majors.index');
+Route::get('/majors/create', [MajorsController::class, 'createPage'])->name('majors.create');
+Route::post('/majors/create', [MajorsController::class, 'createFromForm'])->name('majors.createFromForm');
