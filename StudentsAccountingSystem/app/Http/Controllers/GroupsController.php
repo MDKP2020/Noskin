@@ -10,7 +10,12 @@ use Illuminate\Http\Request;
 class GroupsController extends Controller
 {
     public function indexPage(Request $request) {
-        $groups = Group::filter($request->all())->get();
+        $groups = Group::filter($request->all())
+            ->with('pattern')
+            ->with('students')
+            ->with('years')
+            ->get()
+            ->append('grade');
         $grades = GroupsToYear::allGrades();
         $majors = Major::all();
         return view('groups.index', compact('majors', 'groups', 'grades'));

@@ -62,7 +62,7 @@
                 @foreach($groups as $group)
                     <tr>
                         <th scope="row"><input type="checkbox"/></th>
-                        <td>{{$group->pattern->pattern}}</td>
+                        <td>{{str_replace("*", $group->grade, $group->pattern->pattern)}}</td>
                         <td>Отчислена</td>
                     </tr>
                 @endforeach
