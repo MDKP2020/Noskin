@@ -22,6 +22,15 @@
     </style>
 </head>
 <body class="antialiased">
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+                <a href="#" class="navbar-brand d-flex align-items-center">
+                    <strong>МДКП 2020</strong>
+                </a>
+            </div>
+        </div>
+    </header>
     @yield('content')
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

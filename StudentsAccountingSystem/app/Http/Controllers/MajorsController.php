@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class MajorsController extends Controller
 {
     public function indexPage() {
-        return view('majors.index');
+        $majors = $this->getAll();
+        return view('majors.index', compact('majors'));
     }
 
     public function getAll() {
