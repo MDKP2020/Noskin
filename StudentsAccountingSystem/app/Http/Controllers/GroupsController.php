@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class GroupsController extends Controller
 {
-    public function indexPage(Request $request) {
+    public function indexPage(Request $request)
+    {
         $groups = Group::filter($request->all())
             ->with('pattern')
             ->with('students')
@@ -21,11 +22,29 @@ class GroupsController extends Controller
         return view('groups.index', compact('majors', 'groups', 'grades'));
     }
 
-    public function createPage() {
+    public function groupPage(int $id)
+    {
+        $group = $this->getGroup($id);
+        return view('groups.info', compact('group'));
+    }
+
+
+    public function createPage()
+    {
         return view('groups.create');
     }
 
-    public function getAll() {
+    public function getGroup(int $id)
+    {
+        return Group::with('pattern')
+            ->with('students')
+            ->with('years')
+            ->find($id)
+            ->append('grade');
+    }
+
+    public function getAll()
+    {
         return Group::with('pattern')
             ->with('students')
             ->with('years')

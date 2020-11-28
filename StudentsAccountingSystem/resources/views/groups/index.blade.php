@@ -11,7 +11,7 @@
         </div>
         <div class="col col-3 text-right">
             <a href="{{route('groups.create')}}" class="btn btn-primary">
-                Зачислить студента
+                Добавить группу
             </a>
         </div>
     </div>
@@ -56,26 +56,30 @@
                     </th>
                     <th scope="col">Название</th>
                     <th scope="col">Статус</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($groups as $group)
-                    <tr>
+                    <tr class="tr">
                         <th scope="row"><input type="checkbox"/></th>
-                        <td>{{str_replace("*", $group->grade, $group->pattern->pattern)}}</td>
-                        <td>Отчислена</td>
+                        <td class="align-middle">{{str_replace("*", $group->grade, $group->pattern->pattern)}}</td>
+                        <td class="align-middle">Отчислена</td>
+                        <td class="text-right">
+                            <a class="btn btn-outline-primary" href="{{route('groups.info', [$group->id])}}">Перейти</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
         <div class="card-footer text-muted">
-        <div class="row justify-content-end">
-            <div class="cel">
-                <a href="" class="btn btn-primary mr-1">Первести группу на следующий курс</a>
-                <a href="" class="btn btn-outline-dark">Отчислить</a>
+            <div class="row justify-content-end">
+                <div class="cel">
+                    <a href="" class="btn btn-primary mr-1">Первести группу на следующий курс</a>
+                    <a href="" class="btn btn-outline-dark">Отчислить</a>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 @endsection
