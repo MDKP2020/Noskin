@@ -1,4 +1,4 @@
-@extends('page')
+@extends('layout.page')
 
 @section('title', 'Новая группа')
 
