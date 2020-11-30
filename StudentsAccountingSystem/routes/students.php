@@ -9,6 +9,8 @@ Route::get('', function () {
 });
 
 Route::get('/{id}', function ($id) {
-   dd('PAGE: student with id ' . $id);
+//   dd('PAGE: student with id ' . $id);
+    $data = [];
+    return view('student')->with('data', $data);
 });
 
