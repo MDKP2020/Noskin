@@ -21,4 +21,8 @@ class GroupFilter extends ModelFilter
     public function grade($grade) {
         return $this->related('years', 'grade', $grade);
     }
+
+    public function year_id($year_id) {
+        return $this->related('years', 'year_id', $year_id);
+    }
 }
