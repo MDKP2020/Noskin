@@ -15,11 +15,16 @@
                     </option>
                 @endforeach
             </select>
-            <button type="submit" class="btn btn-primary ml-2">
+            <button type="submit" class="btn btn-primary ml-2" id="group-select-button">
                 Перейти
             </button>
         </div>
     </form>
+    @if(($_GET['year_id'] ?? -1) == -1)
+        <script>
+            document.getElementById("group-select-button").click()
+        </script>
+    @endif
 @endsection
 
 @section('content')
@@ -37,6 +42,8 @@
     <div class="card">
         <div class="card-header">
             <form>
+                <input type="text" value="{{$_GET['year_id'] ?? $academicYear[0]}}}" name="year_id"
+                       style="display: none">
                 <div class="form-row align-items-end">
                     <div class="col">
                         <p>Курс</p>
@@ -79,18 +86,18 @@
                 </thead>
                 <tbody>
                 @foreach($groups as $group)
-@foreach($group->years as $year)
-    @if($year->year_id == $_GET['year_id'])
-                    <tr class="tr">
-                        <th scope="row"><input type="checkbox"/></th>
-                        <td class="align-middle">{{str_replace("*", $group->grade, $group->pattern->pattern)}}</td>
-                        <td class="align-middle">Отчислена</td>
-                        <td class="text-right">
-                            <a class="btn btn-outline-primary" href="{{route('groups.info', [$group->id])}}">Перейти</a>
-                        </td>
-                    </tr>
-                    @endif
-@endforeach
+                    @foreach($group->years as $year)
+                        @if($year->year_id == ($_GET['year_id'] ?? $academicYear[0]))
+                            <tr class="tr">
+                                <th scope="row"><input type="checkbox"/></th>
+                                <td class="align-middle">{{str_replace("*", $group->grade, $group->pattern->pattern)}}</td>
+                                <td class="align-middle">Отчислена</td>
+                                <td class="text-right">
+                                    <a class="btn btn-outline-primary" href="{{route('groups.info', [$group->id])}}">Перейти</a>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
                 @endforeach
                 </tbody>
             </table>
