@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AcademicYear;
 use App\Models\Group;
 use App\Models\GroupsToYear;
 use App\Models\Major;
@@ -16,10 +17,12 @@ class GroupsController extends Controller
             ->with('students')
             ->with('years')
             ->get()
-            ->append('grade');
+            ->append('grade')
+            ->append('year_id');
         $grades = GroupsToYear::allGrades();
         $majors = Major::all();
-        return view('groups.index', compact('majors', 'groups', 'grades'));
+        $academicYears = AcademicYear::all();
+        return view('groups.index', compact('majors', 'groups', 'grades', 'academicYears'));
     }
 
     public function groupPage(int $id)

@@ -23,12 +23,13 @@
 </head>
 <body class="antialiased">
     <header>
-        <div class="navbar navbar-dark bg-dark shadow-sm">
-            <div class="container d-flex justify-content-between">
+        <div class="navbar navbar-dark bg-dark shadow-sm container">
+            <div class="d-flex justify-content-between">
                 <a href="#" class="navbar-brand d-flex align-items-center">
                     <strong>МДКП 2020</strong>
                 </a>
             </div>
+                @yield('academicYearsSelector')
         </div>
     </header>
     <div class="container pt-4">

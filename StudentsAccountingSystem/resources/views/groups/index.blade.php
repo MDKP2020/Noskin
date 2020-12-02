@@ -4,6 +4,24 @@
     Группы
 @endsection
 
+@section('academicYearsSelector')
+    <form>
+        <div class="d-flex">
+            <select class="form-control mr-2" id="academicYearSelect" name="year_id">
+                @foreach($academicYears as $academicYear)
+                    <option @if(($_GET['year_id'] ?? -1) == $academicYear['id']) selected
+                            @endif value="{{$academicYear['id']}}">
+                        {{($academicYear['start_year']) . '-' . (($academicYear['start_year']) + 1)}}
+                    </option>
+                @endforeach
+            </select>
+            <button type="submit" class="btn btn-primary ml-2">
+                Перейти
+            </button>
+        </div>
+    </form>
+@endsection
+
 @section('content')
     <div class="row align-items-center">
         <div class="col">
@@ -61,6 +79,8 @@
                 </thead>
                 <tbody>
                 @foreach($groups as $group)
+@foreach($group->years as $year)
+    @if($year->year_id == $_GET['year_id'])
                     <tr class="tr">
                         <th scope="row"><input type="checkbox"/></th>
                         <td class="align-middle">{{str_replace("*", $group->grade, $group->pattern->pattern)}}</td>
@@ -69,6 +89,8 @@
                             <a class="btn btn-outline-primary" href="{{route('groups.info', [$group->id])}}">Перейти</a>
                         </td>
                     </tr>
+                    @endif
+@endforeach
                 @endforeach
                 </tbody>
             </table>
