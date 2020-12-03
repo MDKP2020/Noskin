@@ -42,7 +42,7 @@
     <div class="card">
         <div class="card-header">
             <form>
-                <input type="text" value="{{$_GET['year_id'] ?? $academicYear[0]}}}" name="year_id"
+                <input type="text" value="{{$_GET['year_id'] ?? $academicYear[0]}}" name="year_id"
                        style="display: none">
                 <div class="form-row align-items-end">
                     <div class="col">
