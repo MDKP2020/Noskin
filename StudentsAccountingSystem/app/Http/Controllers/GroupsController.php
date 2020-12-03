@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AcademicYear;
 use App\Models\Group;
+use App\Models\GroupPattern;
 use App\Models\GroupsToYear;
 use App\Models\Major;
 use Illuminate\Http\Request;
@@ -38,7 +39,11 @@ class GroupsController extends Controller
 
     public function createPage()
     {
-        return view('groups.create');
+        $academicYears = AcademicYear::all();
+        $grades = GroupsToYear::allGrades();
+        $majors = Major::all();
+        $patterns = GroupPattern::all();
+        return view('groups.create', compact('academicYears', 'grades', 'majors', 'patterns'));
     }
 
     public function getGroup(int $id)
