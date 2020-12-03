@@ -12,50 +12,55 @@
     </div>
 
     <div class="card">
+        <form method="post" action="{{route('groups.createFromForm')}}" class="m-4">
+            @csrf
+            <div class="card-body p-0">
+                <div class="m-4">
 
-        <div class="card-body p-0">
-            <form class="m-4">
-                <div class="form-group" style="max-width: 200px">
-                    <label for="yearOfStudySelect">Год</label>
-                    <select class="form-control" id="yearOfStudySelect">
-                        @foreach($academicYears as $academicYear)
-                            <option>{{($academicYear['start_year']) . '-' . (($academicYear['start_year']) + 1)}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group" style="max-width: 200px">
-                    <label for="gradeOfStudySelect">Курс</label>
-                    <select class="form-control" id="gradeOfStudySelect">
-                        @foreach($grades as $grade)
-                            <option>{{$grade}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group" style="max-width: 200px">
-                    <label for="majorSelect">Направление</label>
-                    <select class="form-control" id="majorSelect">
-                        @foreach($majors as $major)
-                            <option>{{$major->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group" style="max-width: 200px">
-                    <label for="namePatternSelect">Название</label>
-                    <select class="form-control" id="namePatternSelect">
-                        @foreach($patterns as $pattern)
-                            <option>{{$pattern->pattern}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </form>
-        </div>
-        <div class="card-footer text-muted">
-            <div class="row justify-content-end">
-                <div class="cel">
-                    <a href="" class="btn btn-primary mr-1">Сохранить</a>
-                    <a href="" class="btn btn-outline-dark">Отменить</a>
+                    <div class="form-group" style="max-width: 200px">
+                        <label for="yearOfStudySelect">Год</label>
+                        <select name="academic_year_id" class="form-control" id="yearOfStudySelect">
+                            @foreach($academicYears as $academicYear)
+                                <option
+                                    value="{{$academicYear->id}}">{{($academicYear['start_year']) . '-' . (($academicYear['start_year']) + 1)}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group" style="max-width: 200px">
+                        <label for="gradeOfStudySelect">Курс</label>
+                        <select name="grade" class="form-control" id="gradeOfStudySelect">
+                            @foreach($grades as $grade)
+                                <option value="{{$grade}}">{{$grade}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group" style="max-width: 200px">
+                        <label for="majorSelect">Направление</label>
+                        <select name="major_id" class="form-control" id="majorSelect">
+                            @foreach($majors as $major)
+                                <option value="{{$major->id}}">{{$major->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group" style="max-width: 200px">
+                        <label for="namePatternSelect">Название</label>
+                        <select name="pattern_id" class="form-control" id="namePatternSelect">
+                            @foreach($patterns as $pattern)
+                                <option value="{{$pattern->id}}">{{$pattern->pattern}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                 </div>
             </div>
-        </div>
+            <div class="card-footer text-muted">
+                <div class="row justify-content-end">
+                    <div class="cel">
+                        <button type="submit" class="btn btn-primary mr-1">Сохранить</button>
+                        <a href="" class="btn btn-outline-dark">Отменить</a>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 @endsection
