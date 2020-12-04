@@ -7,14 +7,20 @@
 @endsection
 
 @section('card-body')
-    <form class="m-4" style="width: 60%;">
-        <label for="nameInput">ФИО</label>
-        <div class="d-flex justify-content-between">
-            <input type="text" class="form-control" id="nameInput" placeholder="Пушкин Александр Сергеевич" style="max-width: 300px;">
-            <p class="text-align-center m-auto">или</p>
-            <button type="button" class="btn btn-primary ml-2" id="add-from-archive-btn">Добавить существующего</button>
-        </div>
-    </form>
+    <div class="d-flex justify-content-center align-items-center" style="width:50%;">
+        <form class="m-4">
+                <label for="lastNameInput">Фамилия</label>
+                <input type="text" class="form-control mb-2" id="lastNameInput" placeholder="Иванов">
+                <label for="firstNameInput">Имя</label>
+                <input type="text" class="form-control mb-2" id="firstNameInput" placeholder="Иван">
+                <label for="patronymicInput">Отчество</label>
+                <input type="text" class="form-control mb-2" id="patronymicInput" placeholder="Иванович">
+                <label for="recordBookIdInput">Номер зачетной книжки</label>
+                <input type="text" class="form-control" id="recordBookIdInput" placeholder="88005553">
+        </form>
+        <p class="text-align-center my-auto mx-4">или</p>
+        <button type="button" class="btn btn-primary ml-2" id="add-from-archive-btn">Добавить существующего</button>
+    </div>
 @endsection
 
 @section('card-footer')

@@ -15,7 +15,7 @@ Route::get('/{yearId}', function ($yearId) {
         - список групп за уч год (id, name, status)
     */
 
-    return view('groups')->with('data', $data);
+    return view('groups.groups')->with('data', $data);
 });
 
 Route::get('/{yearId}/new', function ($yearId) {
@@ -28,7 +28,7 @@ Route::get('/{yearId}/new', function ($yearId) {
         - список курсов (id, value)
         - список шаблонов названий (?)
      */
-    return view('new-group')->with($data);
+    return view('groups.new-group')->with($data);
 });
 
 Route::get('/{yearId}/{id}', function ($yearId, $id) {
@@ -40,7 +40,7 @@ Route::get('/{yearId}/{id}', function ($yearId, $id) {
         - список уч лет (id, value)
         - список студентов
     */
-    return view('students')->with('id', $id);
+    return view('groups.students')->with('id', $id);
 });
 
 Route::get('/{yearId}/{id}/student/add', function ($yearId, $id) {
@@ -50,5 +50,5 @@ Route::get('/{yearId}/{id}/student/add', function ($yearId, $id) {
         - текущий yearId
         - список уч лет (id, value)
      */
-    return view('new-student')->with('id', $id);
+    return view('groups.new-student')->with('id', $id);
 });
