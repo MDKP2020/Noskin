@@ -25,6 +25,7 @@ Route::post('/majors/create', [MajorsController::class, 'createFromForm'])->name
 
 Route::get('/groups', [GroupsController::class, 'indexPage'])->name('groups.index');
 Route::get('/groups/create', [GroupsController::class, 'createPage'])->name('groups.create');
+Route::post('/groups/create', [GroupsController::class, 'createFromForm'])->name('groups.createFromForm');
 
 Route::get('/groups/{year}/{id}', [GroupsController::class, 'groupPage'])->name('groups.info');
 Route::get('/groups/{id}/new', [GroupsController::class, 'newStudent'])->name('groups.new');
