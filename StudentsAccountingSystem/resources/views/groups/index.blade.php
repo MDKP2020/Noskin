@@ -20,11 +20,6 @@
             </button>
         </div>
     </form>
-    @if(($_GET['year_id'] ?? -1) == -1)
-        <script>
-            document.getElementById("group-select-button").click()
-        </script>
-    @endif
 @endsection
 
 @section('content')

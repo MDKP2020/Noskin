@@ -14,6 +14,16 @@ class GroupsController extends Controller
 {
     public function indexPage(Request $request)
     {
+        if(empty($request->get('year_id'))) {
+            $current_year = date('Y');
+            $current_month = date('n');
+            if($current_month > 8) {
+                $year_id = AcademicYear::where('start_year', '=', $current_year)->first()->id;
+            } else {
+                $year_id = AcademicYear::where('start_year', '=', $current_year - 1)->first()->id;
+            }
+            return redirect()->route('groups.index', $request->all() + ['year_id' => $year_id]);
+        }
         $groups = $this->getAll($request);
         $grades = GroupsToYear::allGrades();
         $majors = Major::all();
