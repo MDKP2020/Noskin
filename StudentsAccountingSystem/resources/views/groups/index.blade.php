@@ -7,7 +7,7 @@
 @section('academicYearsSelector')
     <form>
         <div class="d-flex">
-            <select class="form-control mr-2" id="academicYearSelect" name="year_id">
+            <select class="custom-select mr-2" id="academicYearSelect" name="year_id">
                 @foreach($academicYears as $academicYear)
                     <option @if(($_GET['year_id'] ?? -1) == $academicYear['id']) selected
                             @endif value="{{$academicYear['id']}}">
