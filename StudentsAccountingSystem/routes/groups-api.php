@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\GroupsController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/', [GroupsController::class, 'getAll']);
 
 Route::get('/{yearId}', function ($yearId) {
    dd('all groups for year: ' . $yearId);
@@ -29,4 +32,3 @@ Route::put('/{yearId}/{id}', function ($yearId, $id) {
 Route::delete('/{yearId}/{id}', function ($yearId, $id) {
     dd('Delete group with id: ' . $id . ' for year: ' . $yearId);
 });
-

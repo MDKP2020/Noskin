@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('title')
-    Группа {{str_replace("*", $group->grade, $group->pattern->pattern)}}
+    Группа {{str_replace("*", $group->grade, $group->group->pattern->pattern)}}
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 bg-white p-0">
                     <li class="breadcrumb-item"><a class="h1 text-primary" href="{{route('groups.index')}}">Группы</a></li>
-                    <li class="breadcrumb-item active h1" aria-current="page">{{str_replace("*", $group->grade, $group->pattern->pattern)}}</li>
+                    <li class="breadcrumb-item active h1" aria-current="page">{{str_replace("*", $group->grade, $group->group->pattern->pattern)}}</li>
                 </ol>
             </nav>
         </div>
@@ -32,7 +32,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($group->students as $student)
+                @foreach($group->group->students as $student)
                     <tr class="tr">
                         <th scope="row"><input type="checkbox"/></th>
                         <td class="align-middle">{{$student->second_name . " " . $student->first_name . " " . $student->patronymic}}</td>

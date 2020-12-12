@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return 'Hello, MDKP! Test CI/CD';
+    return redirect()->route('groups.index');
 });
 
 Route::get('/majors', [MajorsController::class, 'indexPage'])->name('majors.index');
@@ -26,5 +26,5 @@ Route::post('/majors/create', [MajorsController::class, 'createFromForm'])->name
 Route::get('/groups', [GroupsController::class, 'indexPage'])->name('groups.index');
 Route::get('/groups/create', [GroupsController::class, 'createPage'])->name('groups.create');
 
-Route::get('/groups/{id}', [GroupsController::class, 'groupPage'])->name('groups.info');
+Route::get('/groups/{year}/{id}', [GroupsController::class, 'groupPage'])->name('groups.info');
 Route::get('/groups/{id}/new', [GroupsController::class, 'newStudent'])->name('groups.new');

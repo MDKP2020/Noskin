@@ -86,18 +86,16 @@
                 </thead>
                 <tbody>
                 @foreach($groups as $group)
-                    @foreach($group->years as $year)
-                        @if($year->year_id == ($_GET['year_id'] ?? $academicYear[0]))
+                        @if($group->year_id == ($_GET['year_id'] ?? $academicYear[0]))
                             <tr class="tr">
                                 <th scope="row"><input type="checkbox"/></th>
-                                <td class="align-middle">{{str_replace("*", $group->grade, $group->pattern->pattern)}}</td>
+                                <td class="align-middle">{{str_replace("*", $group->grade, $group->group->pattern->pattern)}}</td>
                                 <td class="align-middle">Отчислена</td>
                                 <td class="text-right">
-                                    <a class="btn btn-outline-primary" href="{{route('groups.info', [$group->id])}}">Перейти</a>
+                                    <a class="btn btn-outline-primary" href="{{route('groups.info', ['year' => $group->year_id, 'id' => $group->group->id])}}">Перейти</a>
                                 </td>
                             </tr>
                         @endif
-                    @endforeach
                 @endforeach
                 </tbody>
             </table>
