@@ -20,18 +20,9 @@
                 @csrf
                 <div class="card-body p-0">
                     <div class="m-4">
-                        <div class="form-group" style="max-width: 200px">
-                            <label for="lastNameInput">Фамилия</label>
-                            <input name="second_name" type="text" class="form-control mb-2" id="lastNameInput" placeholder="">
-                        </div>
-                        <div class="form-group" style="max-width: 200px">
-                            <label for="firstNameInput">Имя</label>
-                            <input name="first_name" type="text" class="form-control mb-2" id="firstNameInput" placeholder="">
-                        </div>
-                        <div class="form-group" style="max-width: 200px">
-                            <label for="patronymicInput">Отчество</label>
-                            <input name="patronymic" type="text" class="form-control mb-2" id="patronymicInput" placeholder="">
-                        </div>
+                        @include('components.form-fields.text', ['name'=>'second_name', 'title'=>'Фамилия'])
+                        @include('components.form-fields.text', ['name'=>'first_name', 'title'=>'Имя'])
+                        @include('components.form-fields.text', ['name'=>'patronymic', 'title'=>'Отчество'])
                     </div>
                     <input type="hidden" name="year_id" value="{{$year_id}}">
                     <input type="hidden" name="group_id" value="{{$id}}">
