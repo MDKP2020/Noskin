@@ -400,7 +400,7 @@
     <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
             <div class="d-flex justify-content-between">
-                <a href="#" class="navbar-brand d-flex align-items-center">
+                <a href="{{route('groups.index')}}" class="navbar-brand d-flex align-items-center">
                     <strong>МДКП 2020</strong>
                 </a>
             </div>

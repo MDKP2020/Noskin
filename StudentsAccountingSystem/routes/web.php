@@ -27,5 +27,6 @@ Route::get('/groups', [GroupsController::class, 'indexPage'])->name('groups.inde
 Route::get('/groups/create', [GroupsController::class, 'createPage'])->name('groups.create');
 Route::post('/groups/create', [GroupsController::class, 'createFromForm'])->name('groups.createFromForm');
 
-Route::get('/groups/{year}/{id}', [GroupsController::class, 'groupPage'])->name('groups.info');
-Route::get('/groups/{id}/new', [GroupsController::class, 'newStudent'])->name('groups.new');
+Route::get('/groups/show/{year}/{id}', [GroupsController::class, 'groupPage'])->name('groups.info');
+Route::get('/groups/new/{year}/{id}', [GroupsController::class, 'newStudent'])->name('groups.new');
+Route::post('/groups/new/', [GroupsController::class, 'newStudentFromForm'])->name('groups.newStudentFromForm');
