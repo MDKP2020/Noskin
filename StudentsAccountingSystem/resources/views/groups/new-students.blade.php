@@ -22,11 +22,11 @@
                     <div class="m-4">
                         <div class="form-group" style="max-width: 200px">
                             <label for="lastNameInput">Фамилия</label>
-                            <input name="first_name" type="text" class="form-control mb-2" id="lastNameInput" placeholder="">
+                            <input name="second_name" type="text" class="form-control mb-2" id="lastNameInput" placeholder="">
                         </div>
                         <div class="form-group" style="max-width: 200px">
                             <label for="firstNameInput">Имя</label>
-                            <input name="second_name" type="text" class="form-control mb-2" id="firstNameInput" placeholder="">
+                            <input name="first_name" type="text" class="form-control mb-2" id="firstNameInput" placeholder="">
                         </div>
                         <div class="form-group" style="max-width: 200px">
                             <label for="patronymicInput">Отчество</label>
