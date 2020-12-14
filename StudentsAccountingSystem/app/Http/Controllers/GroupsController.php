@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateGroup;
+use App\Http\Requests\NewStudentToGroupRequest;
 use App\Models\AcademicYear;
 use App\Models\Group;
 use App\Models\GroupPattern;
 use App\Models\GroupsToYear;
 use App\Models\Major;
+use App\Models\Student;
+use App\Models\StudentToGroup;
 use Illuminate\Http\Request;
 
 class GroupsController extends Controller
@@ -52,15 +55,50 @@ class GroupsController extends Controller
         return view('groups.info', compact('group'));
     }
 
-    public function newStudent(int $year_id, int $id) {
+    public function newStudent(int $year_id, int $id, string $errorMessage = "") {
         $group = $this->getGroup($year_id, $id);
-        return view('groups.new-students', compact('group'));
+        return view('groups.new-students', compact('group', 'year_id', 'id', 'errorMessage'));
+    }
+
+    public function newStudentFromForm(NewStudentToGroupRequest $request)
+    {
+        $validated = $request->validated();
+
+        $group_id = $request['group_id'];
+        $year_id = $request['year_id'];
+
+        $same_student = Group::find($group_id)->students()
+                        ->where('first_name', $validated['first_name'])
+                        ->where('second_name', $validated['second_name'])
+                        ->where('patronymic', $validated['patronymic'])
+                        ->first();
+
+        if ($same_student != null)
+        {
+            return $this->newStudent($year_id, $group_id, "Студент с таким именем уже существует!");
+        }
+
+        $student = new Student;
+        $student->first_name = $validated['first_name'];
+        $student->second_name = $validated['second_name'];
+        $student->patronymic = $validated['patronymic'];
+        $student->save();
+
+        $start_date = date('Y-m-d');
+
+        $studentToGroup = new StudentToGroup;
+        $studentToGroup->student_id = $student->id;
+        $studentToGroup->group_id = $group_id;
+        $studentToGroup->start_date = $start_date;
+        $studentToGroup->save();
+
+        return redirect()->route('groups.info', [$year_id, $group_id]);
     }
 
     public function createPage()
     {
         $academicYears = AcademicYear::all();
-        $grades = GroupsToYear::allGrades();
+        $grades = [1, 2, 3, 4, 5, 6];
         $majors = Major::all();
         $patterns = GroupPattern::all();
         return view('groups.create', compact('academicYears', 'grades', 'majors', 'patterns'));

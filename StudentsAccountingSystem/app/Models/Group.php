@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\ModelFilters\GroupFilter;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Major;
@@ -44,6 +45,6 @@ class Group extends Model
 
     public function modelFilter()
     {
-        return $this->provideFilter(\App\ModelFilters\GroupFilter::class);
+        return $this->provideFilter(GroupFilter::class);
     }
 }
