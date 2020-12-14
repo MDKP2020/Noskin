@@ -14,9 +14,22 @@ class NewStudentToGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            "first_name" => "required",
-            "second_name" => "required",
+            "first_name" => "required|max:255|min:1",
+            "second_name" => "required|max:255|min:1",
             "patronymic" => "nullable"
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+          "first_name.required" => Constants::$THIS_FIELD_REQUIRED_MESSAGE,
+          "second_name.required" => Constants::$THIS_FIELD_REQUIRED_MESSAGE,
+            "first_name.min" => Constants::min_length(1),
+            "second_name.min" => Constants::min_length(1),
+            "first_name.max" => Constants::max_length(255),
+            "second_name.max" => Constants::max_length(255),
+            "patronymic.max" => Constants::max_length(255),
         ];
     }
 }
