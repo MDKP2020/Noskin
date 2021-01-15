@@ -72,7 +72,7 @@
                 <thead>
                 <tr>
                     <th scope="col">
-                        <input type="checkbox"/>
+                        <input type="checkbox" class="js-header-checkbox"/>
                     </th>
                     <th scope="col">Название</th>
                     <th scope="col">Статус</th>
@@ -81,16 +81,17 @@
                 </thead>
                 <tbody>
                 @foreach($groups as $group)
-                        @if($group->year_id == ($_GET['year_id'] ?? $academicYear[0]))
-                            <tr class="tr">
-                                <th scope="row"><input type="checkbox"/></th>
-                                <td class="align-middle">{{str_replace("*", $group->grade, $group->group->pattern->pattern)}}</td>
-                                <td class="align-middle">Отчислена</td>
-                                <td class="text-right">
-                                    <a class="btn btn-outline-primary" href="{{route('groups.info', ['year' => $group->year_id, 'id' => $group->group->id])}}">Перейти</a>
-                                </td>
-                            </tr>
-                        @endif
+                    @if($group->year_id == ($_GET['year_id'] ?? $academicYear[0]))
+                        <tr class="tr">
+                            <th scope="row"><input type="checkbox" class="js-group-item"/></th>
+                            <td class="align-middle">{{str_replace("*", $group->grade, $group->group->pattern->pattern)}}</td>
+                            <td class="align-middle">Отчислена</td>
+                            <td class="text-right">
+                                <a class="btn btn-outline-primary"
+                                   href="{{route('groups.info', ['year' => $group->year_id, 'id' => $group->group->id])}}">Перейти</a>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
                 </tbody>
             </table>
@@ -98,10 +99,52 @@
         <div class="card-footer text-muted">
             <div class="row justify-content-end">
                 <div class="cel">
-                    <a href="" class="btn btn-primary mr-1">Первести группу на следующий курс</a>
-                    <a href="" class="btn btn-outline-dark">Отчислить</a>
+                    <button class="js-transfer-button btn btn-primary mr-1" disabled>Первести группу на следующий курс</button>
+                    <button class="js-expel-button btn btn-outline-dark" disabled>Отчислить</button>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(() => {
+            $(".js-header-checkbox").on('click', () => {
+                const checkboxes = [];
+                $(".js-group-item").each((index, item) => {
+                    checkboxes.push(item);
+                })
+                const isChecked = $(".js-header-checkbox")[0].checked
+                checkboxes.forEach((item) => item.checked = isChecked);
+
+                let checkedCount = 0;
+                checkboxes.forEach((item) => {
+                    if (item.checked) checkedCount++;
+                })
+
+                $(".js-transfer-button")[0].disabled = checkedCount === 0
+                $(".js-expel-button")[0].disabled = checkedCount === 0
+            });
+
+            $(".js-group-item").on('click', () => {
+                const checkboxes = [];
+                $(".js-group-item").each((index, item) => {
+                    checkboxes.push(item);
+                })
+
+                let checkedCount = 0;
+                checkboxes.forEach((item) => {
+                    if (item.checked) checkedCount++;
+                })
+
+                $(".js-transfer-button")[0].disabled = checkedCount === 0
+                $(".js-expel-button")[0].disabled = checkedCount === 0
+
+                $(".js-header-checkbox")[0].checked = checkedCount === checkboxes.length
+            })
+
+
+        })
+    </script>
+@endpush
