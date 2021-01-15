@@ -49,10 +49,10 @@
             <div class="row justify-content-end">
                 <div class="cel">
                     <button type="button" data-toggle="modal" data-target='.transfer_modal'
-                            class="btn btn-primary mr-1">Первести студента(ов) на следующий курс
+                            class="js-transfer-modal-button btn btn-primary mr-1" disabled>Первести студента(ов) на следующий курс
                     </button>
                     <button type="button" data-toggle="modal" data-target='.expel_modal'
-                            class="btn btn-outline-dark">Отчислить
+                            class="js-expel-modal-button btn btn-outline-dark" disabled>Отчислить
                     </button>
                 </div>
             </div>
@@ -108,9 +108,21 @@
         $(document).ready(() => {
             $('.js-header-checkbox').on('click', () => {
                 const isChecked = $('.js-header-checkbox')[0].checked
+                let checkboxes = []
                 $('.js-user-item').each((index, item) => {
-                    item.checked = isChecked
+                    item.checked = isChecked;
+                    checkboxes.push(item);
                 });
+
+                let checkedCount = 0;
+                for(let i = 0; i < checkboxes.length; ++i) {
+                    if(checkboxes[i].checked) {
+                        checkedCount++;
+                    }
+                }
+
+                $('.js-transfer-modal-button')[0].disabled = checkedCount === 0
+                $('.js-expel-modal-button')[0].disabled = checkedCount === 0
             });
 
             $('.js-user-item').on('click', () => {
@@ -123,6 +135,10 @@
                         checkedCount++;
                     }
                 }
+
+                $('.js-transfer-modal-button')[0].disabled = checkedCount === 0
+                $('.js-expel-modal-button')[0].disabled = checkedCount === 0
+
                 $('.js-header-checkbox')[0].checked = checkedCount === checkboxes.length
             })
 
