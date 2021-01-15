@@ -64,7 +64,7 @@
     </div>
 
     <div class="modal fade expel_modal">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <form id="expelform">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -88,7 +88,7 @@
     </div>
 
     <div class="modal fade transfer_modal">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <form id="transferform">
                 <div class="modal-content">
                     <div class="modal-header">
