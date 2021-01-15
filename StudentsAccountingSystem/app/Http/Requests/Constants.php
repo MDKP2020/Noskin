@@ -15,4 +15,9 @@ class Constants
     {
         return "Максимальная длина для поля: " . $val;
     }
+
+    public static function unique()
+    {
+        return "Знаечние поля должно быть уникальным";
+    }
 }

@@ -33,7 +33,8 @@ class NewStudentToGroupRequest extends FormRequest
             "second_name.max" => Constants::max_length(255),
             "patronymic.max" => Constants::max_length(255),
             "student_number.min" => Constants::min_length(1),
-            "student_number.max" => Constants::max_length(255)
+            "student_number.max" => Constants::max_length(255),
+            "student_number.unique" => Constants::unique()
         ];
     }
 }
