@@ -62,11 +62,16 @@
         <div class="modal-dialog">
             <form id="expelform">
                 <div class="modal-content">
-                    <div class="modal-body">
-                        Отчисление студента (ов)
+                    <div class="modal-header">
+                        <h5 class="modal-title">Подвтердите действие</h5>
                     </div>
-                    <input type="button" value="Submit"
-                           class="js-expel-btn btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
+                    <div class="modal-body">
+                        <p>Выберите причину отчисления</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                        <input type="button" class="js-expel-btn btn btn-primary" value="Подтвердить">
+                    </div>
                 </div>
             </form>
         </div>
@@ -76,11 +81,16 @@
         <div class="modal-dialog">
             <form id="transferform">
                 <div class="modal-content">
-                    <div class="modal-body">
-                        Перевод студента (ов)
+                    <div class="modal-header">
+                        <h5 class="modal-title">Подвтердите действие</h5>
                     </div>
-                    <input type="button" value="Submit"
-                           class="js-transfer-btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
+                    <div class="modal-body">
+                        <p>Вы уверены что хотите первести эти группы на следющий курс?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                        <input type="button" class="js-transfer-btn btn btn-primary" value="Подтвердить">
+                    </div>
                 </div>
             </form>
         </div>
@@ -100,6 +110,29 @@
                 console.log(ids)
                 $.ajax({
                     url: "{{route('groups.students.expel')}}",
+                    type: "POST",
+                    data: {
+                        expel: 1,
+                        select: ids
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        window.location.reload();
+                    }
+                });
+            });
+
+            $('.js-transfer-btn').on('click', () => {
+                const ids = [];
+                $('.js-user-item').each((index, item) => {
+                    if (item.checked) {
+                        ids.push(item.value)
+                    }
+                })
+                console.log(ids)
+                $.ajax({
+                    url: "{{route('groups.students.transfer')}}",
                     type: "POST",
                     data: {
                         expel: 1,
