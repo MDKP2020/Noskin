@@ -31,6 +31,7 @@
                         <input class="js-header-checkbox" type="checkbox"/>
                     </th>
                     <th scope="col">ФИО</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,6 +41,9 @@
                             <input type="checkbox" name="select[]" class="js-user-item" value="{{$student->id}}"/>
                         </th>
                         <td class="align-middle">{{$student->second_name . " " . $student->first_name . " " . $student->patronymic}}</td>
+                        <td class="text-right">
+                            <a class="btn btn-outline-primary" href="">Перейти</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
