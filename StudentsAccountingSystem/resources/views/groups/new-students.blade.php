@@ -16,10 +16,10 @@
                 {{ $errorMessage }}
             </div>
         @endif
-        <form method="post" class="m-4 card-body" action="{{route('groups.newStudentFromForm')}}">
+        <form method="post" class="card-body p-0" action="{{route('groups.newStudentFromForm')}}">
             @csrf
-            <div class="card-body p-0">
-                <div class="m-4">
+            <div class="card-body p-4">
+                <div class="">
                     @include('components.form-fields.text', ['name'=>'second_name', 'title'=>'Фамилия'])
                     @include('components.form-fields.text', ['name'=>'first_name', 'title'=>'Имя'])
                     @include('components.form-fields.text', ['name'=>'patronymic', 'title'=>'Отчество'])
@@ -29,7 +29,7 @@
                 <input type="hidden" name="group_id" value="{{$id}}">
             </div>
             <div class="card-footer text-muted">
-                <div class="row justify-content-end">
+                <div class="row justify-content-end px-4">
                     <div class="cel">
                         <button type="submit" class="btn btn-primary mr-1">Сохранить</button>
                         <a href="" class="btn btn-outline-dark">Отменить</a>
