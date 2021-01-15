@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateGroup;
 use App\Http\Requests\NewStudentToGroupRequest;
 use App\Models\AcademicYear;
+use App\Models\ExpelReasons;
 use App\Models\Group;
 use App\Models\GroupPattern;
 use App\Models\GroupsToYear;
@@ -52,7 +53,8 @@ class GroupsController extends Controller
     public function groupPage(int $year_id, int $id)
     {
         $group = $this->getGroup($year_id, $id);
-        return view('groups.info', compact('group'));
+        $expelReasons = ExpelReasons::all();
+        return view('groups.info', compact('group', 'expelReasons'));
     }
 
     public function newStudent(int $year_id, int $id, string $errorMessage = "") {

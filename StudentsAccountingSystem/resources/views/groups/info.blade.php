@@ -28,7 +28,7 @@
                 <thead>
                 <tr>
                     <th scope="col">
-                        <input type="checkbox"/>
+                        <input class="js-header-checkbox" type="checkbox"/>
                     </th>
                     <th scope="col">ФИО</th>
                 </tr>
@@ -36,8 +36,9 @@
                 <tbody>
                 @foreach($group->group->students as $student)
                     <tr class="tr">
-                        <th scope="row"><input type="checkbox" name="select[]" class="js-user-item"
-                                               value="{{$student->id}}"/></th>
+                        <th scope="row">
+                            <input type="checkbox" name="select[]" class="js-user-item" value="{{$student->id}}"/>
+                        </th>
                         <td class="align-middle">{{$student->second_name . " " . $student->first_name . " " . $student->patronymic}}</td>
                     </tr>
                 @endforeach
@@ -67,6 +68,11 @@
                     </div>
                     <div class="modal-body">
                         <p>Выберите причину отчисления</p>
+                        <select name="expel_reason" class="custom-select">
+                            @foreach($expelReasons as $expelReason)
+                                <option value="{{$expelReason->id}}">{{$expelReason->reason}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
@@ -100,6 +106,26 @@
 @push('scripts')
     <script>
         $(document).ready(() => {
+            $('.js-header-checkbox').on('click', () => {
+                const isChecked = $('.js-header-checkbox')[0].checked
+                $('.js-user-item').each((index, item) => {
+                    item.checked = isChecked
+                });
+            });
+
+            $('.js-user-item').on('click', () => {
+                let checkboxes = []
+                $('.js-user-item').each((index, data) => { checkboxes.push(data) })
+
+                let checkedCount = 0;
+                for(let i = 0; i < checkboxes.length; ++i) {
+                    if(checkboxes[i].checked) {
+                        checkedCount++;
+                    }
+                }
+                $('.js-header-checkbox')[0].checked = checkedCount === checkboxes.length
+            })
+
             $('.js-expel-btn').on('click', () => {
                 const ids = [];
                 $('.js-user-item').each((index, item) => {
