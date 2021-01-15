@@ -47,9 +47,10 @@
         <div class="card-footer text-muted">
             <div class="row justify-content-end">
                 <div class="cel">
-                    <input type="submit" name="transfer" class="btn btn-primary mr-1"
-                           value="Первести студента(ов) на следующий курс"/>
-                    <button type="button" data-toggle="modal" data-target='#practice_modal'
+                    <button type="button" data-toggle="modal" data-target='.transfer_modal'
+                            class="btn btn-primary mr-1">Первести студента(ов) на следующий курс
+                    </button>
+                    <button type="button" data-toggle="modal" data-target='.expel_modal'
                             class="btn btn-outline-dark">Отчислить
                     </button>
                 </div>
@@ -57,14 +58,29 @@
         </div>
     </div>
 
-    <div class="modal fade" id="practice_modal">
+    <div class="modal fade expel_modal">
         <div class="modal-dialog">
-            <form id="companydata">
+            <form id="expelform">
                 <div class="modal-content">
                     <div class="modal-body">
+                        Отчисление студента (ов)
                     </div>
-                    <input type="button" value="Submit" id="submit"
+                    <input type="button" value="Submit"
                            class="js-expel-btn btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade transfer_modal">
+        <div class="modal-dialog">
+            <form id="transferform">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        Перевод студента (ов)
+                    </div>
+                    <input type="button" value="Submit"
+                           class="js-transfer-btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
                 </div>
             </form>
         </div>
