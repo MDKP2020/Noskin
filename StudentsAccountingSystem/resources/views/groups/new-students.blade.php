@@ -32,7 +32,7 @@
                 <div class="row justify-content-end px-4">
                     <div class="cel">
                         <button type="submit" class="btn btn-primary mr-1">Сохранить</button>
-                        <a href="" class="btn btn-outline-dark">Отменить</a>
+                        <a href="{{route('groups.info', [$year_id, $id])}}" class="btn btn-outline-dark">Отменить</a>
                     </div>
                 </div>
             </div>
