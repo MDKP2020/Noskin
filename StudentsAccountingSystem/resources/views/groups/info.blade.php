@@ -68,7 +68,7 @@
                     </div>
                     <div class="modal-body">
                         <p>Выберите причину отчисления</p>
-                        <select name="expel_reason" class="custom-select">
+                        <select name="expel_reason" class="js-expel-reason-select custom-select">
                             @foreach($expelReasons as $expelReason)
                                 <option value="{{$expelReason->id}}">{{$expelReason->reason}}</option>
                             @endforeach
@@ -139,7 +139,8 @@
                     type: "POST",
                     data: {
                         expel: 1,
-                        select: ids
+                        select: ids,
+                        expel_reason_id: $('.js-expel-reason-select')[0].value
                     },
                     dataType: 'json',
                     success: function (data) {
