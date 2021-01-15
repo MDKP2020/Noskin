@@ -67,21 +67,11 @@ class GroupsController extends Controller
         $group_id = $request['group_id'];
         $year_id = $request['year_id'];
 
-        $same_student = Group::find($group_id)->students()
-                        ->where('first_name', $validated['first_name'])
-                        ->where('second_name', $validated['second_name'])
-                        ->where('patronymic', $validated['patronymic'])
-                        ->first();
-
-        if ($same_student != null)
-        {
-            return $this->newStudent($year_id, $group_id, "Студент с таким именем уже существует!");
-        }
-
         $student = new Student;
         $student->first_name = $validated['first_name'];
         $student->second_name = $validated['second_name'];
         $student->patronymic = $validated['patronymic'];
+        $student->student_number = $validated['student_number'];
         $student->save();
 
         $start_date = date('Y-m-d');
