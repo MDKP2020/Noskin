@@ -9,8 +9,10 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 bg-white p-0">
-                    <li class="breadcrumb-item"><a class="h1 text-primary" href="{{route('groups.index')}}">Группы</a></li>
-                    <li class="breadcrumb-item active h1" aria-current="page">{{str_replace("*", $group->grade, $group->group->pattern->pattern)}}</li>
+                    <li class="breadcrumb-item"><a class="h1 text-primary" href="{{route('groups.index')}}">Группы</a>
+                    </li>
+                    <li class="breadcrumb-item active h1"
+                        aria-current="page">{{str_replace("*", $group->grade, $group->group->pattern->pattern)}}</li>
                 </ol>
             </nav>
         </div>
@@ -34,7 +36,8 @@
                 <tbody>
                 @foreach($group->group->students as $student)
                     <tr class="tr">
-                        <th scope="row"><input type="checkbox"/></th>
+                        <th scope="row"><input type="checkbox" name="select[]" class="js-user-item"
+                                               value="{{$student->id}}"/></th>
                         <td class="align-middle">{{$student->second_name . " " . $student->first_name . " " . $student->patronymic}}</td>
                     </tr>
                 @endforeach
@@ -44,10 +47,55 @@
         <div class="card-footer text-muted">
             <div class="row justify-content-end">
                 <div class="cel">
-                    <a href="" class="btn btn-primary mr-1">Первести студента(ов) на следующий курс</a>
-                    <a href="" class="btn btn-outline-dark">Отчислить</a>
+                    <input type="submit" name="transfer" class="btn btn-primary mr-1"
+                           value="Первести студента(ов) на следующий курс"/>
+                    <button type="button" data-toggle="modal" data-target='#practice_modal'
+                            class="btn btn-outline-dark">Отчислить
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="practice_modal">
+        <div class="modal-dialog">
+            <form id="companydata">
+                <div class="modal-content">
+                    <div class="modal-body">
+                    </div>
+                    <input type="button" value="Submit" id="submit"
+                           class="js-expel-btn btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(() => {
+            $('.js-expel-btn').on('click', () => {
+                const ids = [];
+                $('.js-user-item').each((index, item) => {
+                    if (item.checked) {
+                        ids.push(item.value)
+                    }
+                })
+                console.log(ids)
+                $.ajax({
+                    url: "{{route('groups.students.expel')}}",
+                    type: "POST",
+                    data: {
+                        expel: 1,
+                        select: ids
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        window.location.reload();
+                    }
+                });
+            })
+        })
+    </script>
+@endpush
