@@ -28,7 +28,7 @@ class Group extends Model
     public function students()
     {
         return $this->belongsToMany(Student::class, 'student_to_group', 'group_id', 'student_id')
-            ->withPivot('start_date', 'end_date');
+            ->withPivot('start_date', 'end_date', 'id');
     }
 
     public function years()
