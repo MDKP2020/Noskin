@@ -65,7 +65,7 @@
                     <h5 class="modal-title">Подвтердите удаление</h5>
                 </div>
                 <div class="modal-body">
-                    <p>Вы дейтсвительно хотите удалить студента?</p>
+                    <p>Вы дейтсвительно хотите удалить студента: <b>{{$student->second_name}} {{$student->first_name}} {{$student->patronymic}}</b>?</p>
                     <p>Он также будет удален из всех групп в которых он находится</p>
                 </div>
                 <div class="modal-footer">
