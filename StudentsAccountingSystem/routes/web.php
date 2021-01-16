@@ -24,6 +24,9 @@ Route::get('/majors', [MajorsController::class, 'indexPage'])->name('majors.inde
 Route::get('/majors/create', [MajorsController::class, 'createPage'])->name('majors.create');
 Route::post('/majors/create', [MajorsController::class, 'createFromForm'])->name('majors.createFromForm');
 
+Route::get('/patterns')->name('patterns.index');
+Route::get('/reasons')->name('reasons.index');
+
 Route::get('/groups', [GroupsController::class, 'indexPage'])->name('groups.index');
 Route::get('/groups/create', [GroupsController::class, 'createPage'])->name('groups.create');
 Route::post('/groups/create', [GroupsController::class, 'createFromForm'])->name('groups.createFromForm');

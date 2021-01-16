@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    @include('components.admin.admin-nav')
     <div class="row align-items-center">
         <div class="col">
             <h1>Направления</h1>
