@@ -11,3 +11,5 @@ Route::prefix('years')->group(base_path('/routes/years-api.php'));
 Route::prefix('majors')->group(base_path('/routes/majors-api.php'));
 
 Route::prefix('patterns')->group(base_path('/routes/patterns-api.php'));
+
+Route::prefix('reasons')->group(base_path('/routes/expel-reasons-api.php'));
