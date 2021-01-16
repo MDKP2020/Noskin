@@ -53,10 +53,12 @@
         <div class="card-footer text-muted">
             <div class="row justify-content-end">
                 <div class="cel">
+                    @if ($group->grade != 4)
                     <button type="button" data-toggle="modal" data-target='.transfer_modal'
                             class="js-transfer-modal-button btn btn-primary mr-1" disabled>Перевести студента(ов) на
                         следующий курс
                     </button>
+                    @endif
                     <button type="button" data-toggle="modal" data-target='.expel_modal'
                             class="js-expel-modal-button btn btn-outline-dark" disabled>Отчислить
                     </button>
