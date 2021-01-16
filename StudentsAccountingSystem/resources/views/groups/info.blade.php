@@ -72,10 +72,10 @@
             <form id="expelform">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Подвтердите действие</h5>
+                        <h5 class="modal-title">Подтвердите действие</h5>
                     </div>
                     <div class="modal-body">
-                        <p>Вы дейстивтельно хотите отчислить студента(ов)?</p>
+                        <p>Вы действительно хотите отчислить студента(ов)?</p>
                         <ul class="js-expel-users-list list-unstyled">
 
                         </ul>
