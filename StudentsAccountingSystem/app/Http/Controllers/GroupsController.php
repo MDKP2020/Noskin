@@ -91,7 +91,7 @@ class GroupsController extends Controller
         $student->student_number = $validated['student_number'];
         $student->save();
 
-        $start_date = date('Y-m-d');
+        $start_date = Utils::createFirstDateFromId($year_id);
 
         $studentToGroup = new StudentToGroup;
         $studentToGroup->student_id = $student->id;
