@@ -24,4 +24,21 @@
             </nav>
         </div>
     </div>
+    <div class="card">
+        <div class="card-header">
+            <h2>Информация о студенте</h2>
+        </div>
+        <div class="card-body p-4">
+            <p>some content</p>
+        </div>
+        <div class="card-footer">
+            <div class="row justify-content-end">
+                <div class="cell px-4">
+                    <button type="button" class="btn btn-danger">
+                        Удалить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
