@@ -205,6 +205,7 @@
                         group_id: "{{$group->group->id}}",
                         expel: 1,
                         select: selectedUsers.map((item) => item.id),
+                        year_id: "{{$year_id}}",
                         expel_reason_id: $('.js-expel-reason-select')[0].value
                     },
                     dataType: 'json',
@@ -229,6 +230,8 @@
                     type: "POST",
                     data: {
                         expel: 1,
+                        year_id: "{{$year_id}}",
+                        group_id: "{{$group->group->id}}",
                         select: selectedUsers.map((item) => item.id)
                     },
                     dataType: 'json',
