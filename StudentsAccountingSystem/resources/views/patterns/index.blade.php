@@ -30,7 +30,7 @@
             <tr>
                 <th scope="row" class="text-center">{{$pattern->id}}</th>
                 <td class="text-center">{{$pattern->pattern}}</td>
-                <td class="text-center">{{$pattern->major_id}}</td>
+                <td class="text-center">{{$pattern->major->name}}</td>
                 <td class="text-center">
                     <form action="{{route('patterns.api.delete.redirect',['id' => $pattern->id])}}" method="post">
                         <button type="submit" class="btn btn-danger">

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class PatternsController extends Controller
 {
     public function indexPage() {
-        $patterns = GroupPattern::all();
+        $patterns = GroupPattern::with('major')->get();
         return view('patterns.index', compact('patterns'));
     }
 
