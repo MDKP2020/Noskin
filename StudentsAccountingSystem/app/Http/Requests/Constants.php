@@ -18,6 +18,6 @@ class Constants
 
     public static function unique()
     {
-        return "Знаечние поля должно быть уникальным";
+        return "Значение поля должно быть уникальным";
     }
 }
