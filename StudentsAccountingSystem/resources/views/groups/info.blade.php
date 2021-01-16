@@ -76,6 +76,7 @@
                     <button type="button" data-toggle="modal" data-target='.expel_modal'
                             class="js-expel-modal-button btn btn-outline-dark" disabled>Отчислить
                     </button>
+
                 </div>
             </div>
         </div>
@@ -178,8 +179,8 @@
                         checkedCount++;
                     }
                 }
-
-                $('.js-transfer-modal-button')[0].disabled = checkedCount === 0
+                if ($('.js-transfer-modal-button')[0])
+                    $('.js-transfer-modal-button')[0].disabled = checkedCount === 0
                 $('.js-expel-modal-button')[0].disabled = checkedCount === 0
             });
 
@@ -197,7 +198,8 @@
                     }
                 }
 
-                $('.js-transfer-modal-button')[0].disabled = checkedCount === 0
+                if ($('.js-transfer-modal-button')[0])
+                    $('.js-transfer-modal-button')[0].disabled = checkedCount === 0
                 $('.js-expel-modal-button')[0].disabled = checkedCount === 0
 
                 $('.js-header-checkbox')[0].checked = checkedCount === checkboxes.length
