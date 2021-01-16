@@ -75,7 +75,6 @@
                         <input type="checkbox" class="js-header-checkbox"/>
                     </th>
                     <th scope="col">Название</th>
-                    <th scope="col">Статус</th>
                     <th scope="col">Кол-во студентов</th>
                     <th></th>
                 </tr>
@@ -86,7 +85,6 @@
                         <tr class="tr">
                             <th scope="row"><input type="checkbox" class="js-group-item"/></th>
                             <td class="align-middle">{{str_replace("*", $group->grade, $group->group->pattern->pattern)}}</td>
-                            <td class="align-middle">Отчислена</td>
                             <td class="align-middle">{{$group->group->students->count()}}</td>
                             <td class="text-right">
                                 <a class="btn btn-outline-primary"
