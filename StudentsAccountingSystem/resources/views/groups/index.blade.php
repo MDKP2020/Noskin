@@ -99,8 +99,24 @@
         <div class="card-footer text-muted">
             <div class="row justify-content-end">
                 <div class="cel">
-                    <button class="js-transfer-button btn btn-primary mr-1" disabled>Первести группу на следующий курс</button>
-                    <button class="js-expel-button btn btn-outline-dark" disabled>Отчислить</button>
+                    <button class="js-transfer-button btn btn-primary mr-1" data-toggle="modal" data-target=".in-dev-modal" disabled>Первести группу на следующий курс</button>
+                    <button class="js-expel-button btn btn-outline-dark" data-toggle="modal" data-target=".in-dev-modal" disabled>Отчислить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in-dev-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">В разработке</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Данная функциональнасть находится в разработке :(</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal">Ок</button>
                 </div>
             </div>
         </div>
