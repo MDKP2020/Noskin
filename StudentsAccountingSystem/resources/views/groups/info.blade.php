@@ -37,6 +37,7 @@
                 </thead>
                 <tbody>
                 @foreach($group->group->students as $student)
+                    @if (\App\Http\Controllers\Utils::createFirstDateFromId($year_id) == $student->pivot->start_date)
                     <tr class="tr">
                         <th scope="row">
 
@@ -58,6 +59,7 @@
                                href="{{route('group.student', ['year' => $year_id, 'group_id' => $group->group->id, 'id' => $student->id])}}">Перейти</a>
                         </td>
                     </tr>
+                    @endif
                 @endforeach
                 </tbody>
             </table>
