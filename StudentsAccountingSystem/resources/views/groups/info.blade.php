@@ -39,7 +39,14 @@
                 @foreach($group->group->students as $student)
                     <tr class="tr">
                         <th scope="row">
-                            <input type="checkbox" name="select[]" class="js-user-item" value="{{$student}}"/>
+
+                            <input type="checkbox" name="select[]" class="js-user-item align-middle" value="{{$student}}"
+                                   @if (\App\Http\Controllers\Utils::isTransferredById($student->pivot->id)
+                                    || \App\Http\Controllers\Utils::isExpelledById($student->pivot->id) )
+                                disabled
+                                @endif
+                            />
+
                         </th>
                         <td class="align-middle">{{$student->second_name . " " . $student->first_name . " " . $student->patronymic}}</td>
 
@@ -156,8 +163,11 @@
                 const isChecked = $('.js-header-checkbox')[0].checked
                 let checkboxes = []
                 $('.js-user-item').each((index, item) => {
-                    item.checked = isChecked;
-                    checkboxes.push(item);
+                    if (!item.disabled)
+                    {
+                        item.checked = isChecked;
+                        checkboxes.push(item);
+                    }
                 });
 
                 let checkedCount = 0;
@@ -174,7 +184,8 @@
             $('.js-user-item').on('click', () => {
                 let checkboxes = []
                 $('.js-user-item').each((index, data) => {
-                    checkboxes.push(data)
+                    if (!data.disabled)
+                        checkboxes.push(data)
                 })
 
                 let checkedCount = 0;
@@ -193,7 +204,7 @@
             $('.js-expel-btn').on('click', () => {
                 const selectedUsers = [];
                 $('.js-user-item').each((index, item) => {
-                    if (item.checked) {
+                    if (item.checked && !item.disabled) {
                         selectedUsers.push(JSON.parse(item.value));
                     }
                 })
@@ -219,7 +230,7 @@
             $('.js-transfer-btn').on('click', () => {
                 const selectedUsers = [];
                 $('.js-user-item').each((index, item) => {
-                    if (item.checked) {
+                    if (item.checked && !item.disabled) {
                         selectedUsers.push(JSON.parse(item.value));
                     }
                 })
