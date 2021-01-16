@@ -28,5 +28,43 @@ class Utils
     }
 
 
+    public static function getCountInfo(GroupsToYear $groupsToYear) : string
+    {
+        $students = self::studentsForGroupAndYear($groupsToYear);
 
+        $expelledCount = 0;
+        $transferredCount = 0;
+        $otherCount = 0;
+
+        foreach ($students as $student) {
+            if (self::isTransferred($student))
+                $transferredCount++;
+            else if (self::isExpelled($student))
+                $expelledCount++;
+            else
+                $otherCount++;
+        }
+
+        return "Переведено: " . $transferredCount . ". Отчислено: " . $expelledCount . ". Остальные: " . $otherCount . ".";
+    }
+
+    public static function isTransferred(StudentToGroup $student) : bool
+    {
+        return $student->end_date && $student->next_group;
+    }
+
+    public static function isExpelled(StudentToGroup $student) : bool
+    {
+        return $student->end_date && $student->expel_reason_id;
+    }
+
+    public static function isTransferredById(int $id): bool
+    {
+        return self::isTransferred(StudentToGroup::where('id', $id)->first());
+    }
+
+    public static function isExpelledById(int $id): bool
+    {
+        return self::isExpelled(StudentToGroup::where('id', $id)->first());
+    }
 }

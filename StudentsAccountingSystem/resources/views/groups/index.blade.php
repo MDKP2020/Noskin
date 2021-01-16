@@ -85,7 +85,7 @@
                         <tr class="tr">
                             <th scope="row"><input type="checkbox" class="js-group-item"/></th>
                             <td class="align-middle">{{str_replace("*", $group->grade, $group->group->pattern->pattern)}}</td>
-                            <td class="align-middle">{{$group->group->students->count()}}</td>
+                            <td class="align-middle">{{\App\Http\Controllers\Utils::getCountInfo($group)}}</td>
                             <td class="text-right">
                                 <a class="btn btn-outline-primary"
                                    href="{{route('groups.info', ['year' => $group->year_id, 'id' => $group->group->id])}}">Перейти</a>
