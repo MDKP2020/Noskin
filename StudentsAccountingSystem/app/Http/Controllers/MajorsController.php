@@ -68,6 +68,11 @@ class MajorsController extends Controller
         Major::find($id)->delete();
     }
 
+    public function deleteAndRedirect(int $id) {
+        $this->delete($id);
+        return redirect()->back();
+    }
+
     private static function responseForError(string $errorMessage, int $status = 400) {
         return response(["errorMessage" => $errorMessage], $status);
     }
