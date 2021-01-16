@@ -45,7 +45,6 @@ class GroupsController extends Controller
         $groupToYears->group_id = $group->id;
         $groupToYears->year_id = $validated['academic_year_id'];
         $groupToYears->grade = $validated['grade'];
-        $groupToYears->expel_reason_id = 1;
         $groupToYears->save();
         return redirect()->route('groups.index');
     }
