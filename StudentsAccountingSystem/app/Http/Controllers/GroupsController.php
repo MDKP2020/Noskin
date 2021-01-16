@@ -104,7 +104,7 @@ class GroupsController extends Controller
     public function createPage()
     {
         $academicYears = AcademicYear::all();
-        $grades = [1, 2, 3, 4, 5, 6];
+        $grades = [1, 2, 3, 4];
         $majors = Major::all();
         $patterns = GroupPattern::all();
         return view('groups.create', compact('academicYears', 'grades', 'majors', 'patterns'));
