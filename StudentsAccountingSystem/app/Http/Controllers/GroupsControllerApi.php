@@ -43,8 +43,7 @@ class GroupsControllerApi extends Controller
         $nextGroup = GroupsToYear::where('group_id', $groupId)->where('year_id', $nextYear->id)->firstOrCreate([
                 "group_id" => $groupId,
                 "year_id" => $nextYear->id,
-                "grade" => $currentGroup->grade + 1,
-                "expel_reason_id" => 1
+                "grade" => $currentGroup->grade + 1
             ]
         );
         $nextGroup->save();
