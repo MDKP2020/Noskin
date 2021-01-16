@@ -60,7 +60,16 @@ class GroupsController extends Controller
     public function studentPage(int $year_id, int $group_id, int $student_id) {
         $student = Student::find($student_id);
         $group = $this->getGroup($year_id, $group_id);
-        return view('groups.student', compact('student', 'group', 'year_id'));
+        $studentToGroups = StudentToGroup::where('student_id', $student_id)->get();
+
+        $expelReasons = [];
+
+        foreach (ExpelReasons::all() as $expelReason)
+        {
+            $expelReasons[$expelReason->id] = $expelReason->reason;
+        }
+
+        return view('groups.student', compact('student', 'group', 'year_id', 'studentToGroups', 'expelReasons'));
     }
 
     public function newStudent(int $year_id, int $id, string $errorMessage = "") {
@@ -82,7 +91,7 @@ class GroupsController extends Controller
         $student->student_number = $validated['student_number'];
         $student->save();
 
-        $start_date = date('Y-m-d');
+        $start_date = Utils::createFirstDateFromId($year_id);
 
         $studentToGroup = new StudentToGroup;
         $studentToGroup->student_id = $student->id;
