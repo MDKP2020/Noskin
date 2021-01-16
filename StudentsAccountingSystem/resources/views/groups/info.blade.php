@@ -31,6 +31,7 @@
                         <input class="js-header-checkbox" type="checkbox"/>
                     </th>
                     <th scope="col">ФИО</th>
+                    <th scope="col">Информация</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -41,6 +42,10 @@
                             <input type="checkbox" name="select[]" class="js-user-item" value="{{$student}}"/>
                         </th>
                         <td class="align-middle">{{$student->second_name . " " . $student->first_name . " " . $student->patronymic}}</td>
+
+                        <td id="info" class="align-middle">
+                            {{  \App\Http\Controllers\Utils::getInfoString($student)  }}
+                        </td>
                         <td class="text-right">
                             <a class="btn btn-outline-primary"
                                href="{{route('group.student', ['year' => $year_id, 'group_id' => $group->group->id, 'id' => $student->id])}}">Перейти</a>

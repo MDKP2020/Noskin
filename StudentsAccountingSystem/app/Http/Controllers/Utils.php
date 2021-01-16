@@ -27,6 +27,24 @@ class Utils
         return date('Y-m-d', $date);
     }
 
+    public static function getInfoString($studentInfo) : string
+    {
+        $student = StudentToGroup::where('id', $studentInfo->pivot->id)->first();
+
+        $infoStr = "";
+
+        if (self::isExpelled($student))
+        {
+            $infoStr .= "Отчислен " . $student->end_date . ". ";
+        }
+
+        if (self::isTransferred($student))
+        {
+            $infoStr .= "Переведён" . ". ";
+        }
+
+        return $infoStr;
+    }
 
     public static function getCountInfo(GroupsToYear $groupsToYear) : string
     {
