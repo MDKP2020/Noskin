@@ -50,9 +50,27 @@
         <div class="card-footer">
             <div class="row justify-content-end">
                 <div class="cell px-4">
-                    <button type="button" class="btn btn-danger">
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".delete-modal">
                         Удалить
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade delete-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Подвтердите удаление</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Вы дейтсвительно хотите удалить студента?</p>
+                    <p>Он также будет удален из всех групп в которых он находится</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                    <button class="js-delete-btn btn btn-danger">Подтвердить</button>
                 </div>
             </div>
         </div>
