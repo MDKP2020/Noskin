@@ -54,7 +54,12 @@ class GroupsController extends Controller
     {
         $group = $this->getGroup($year_id, $id);
         $expelReasons = ExpelReasons::all();
-        return view('groups.info', compact('group', 'expelReasons'));
+        return view('groups.info', compact('group', 'expelReasons', 'year_id'));
+    }
+
+    public function studentPage(int $year_id, int $group_id, int $student_id) {
+        $student = Student::find($student_id);
+        return view('groups.student', compact('student'));
     }
 
     public function newStudent(int $year_id, int $id, string $errorMessage = "") {

@@ -42,7 +42,7 @@
                         </th>
                         <td class="align-middle">{{$student->second_name . " " . $student->first_name . " " . $student->patronymic}}</td>
                         <td class="text-right">
-                            <a class="btn btn-outline-primary" href="">Перейти</a>
+                            <a class="btn btn-outline-primary" href="{{route('group.student', ['year' => $year_id, 'group_id' => $group->group->id, 'id' => $student->id])}}">Перейти</a>
                         </td>
                     </tr>
                 @endforeach
