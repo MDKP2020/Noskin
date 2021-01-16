@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ExpelReasonsController;
 use App\Http\Controllers\GroupsController;
 use App\Http\Controllers\GroupsControllerApi;
 use App\Http\Controllers\MajorsController;
+use App\Http\Controllers\PatternsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +25,14 @@ Route::get('/', function () {
 Route::get('/majors', [MajorsController::class, 'indexPage'])->name('majors.index');
 Route::get('/majors/create', [MajorsController::class, 'createPage'])->name('majors.create');
 Route::post('/majors/create', [MajorsController::class, 'createFromForm'])->name('majors.createFromForm');
+
+Route::get('/patterns', [PatternsController::class, 'indexPage'])->name('patterns.index');
+Route::get('/patterns/create', [PatternsController::class, 'createPage'])->name('patterns.create');
+Route::post('/patterns/create', [PatternsController::class, 'createFromForm'])->name('patterns.createFromForm');
+
+Route::get('/reasons', [ExpelReasonsController::class, 'indexPage'])->name('reasons.index');
+Route::get('/reasons/create', [ExpelReasonsController::class, 'createPage'])->name('reasons.create');
+Route::post('/reasons/create', [ExpelReasonsController::class, 'createFromForm'])->name('reasons.createFromForm');
 
 Route::get('/groups', [GroupsController::class, 'indexPage'])->name('groups.index');
 Route::get('/groups/create', [GroupsController::class, 'createPage'])->name('groups.create');

@@ -10,6 +10,6 @@
         @csrf
         @include('components.form-fields.text', ['name'=>'name', 'title'=>'Имя'])
         @include('components.form-fields.text', ['name'=>'code', 'title'=>'Код'])
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Создать</button>
     </form>
 @endsection

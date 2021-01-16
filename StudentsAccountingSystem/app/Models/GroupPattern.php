@@ -13,4 +13,8 @@ class GroupPattern extends Model
     public function groups() {
         return $this->hasMany(Group::class);
     }
+
+    public function major() {
+        return $this->belongsTo(Major::class);
+    }
 }

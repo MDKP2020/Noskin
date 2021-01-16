@@ -13,3 +13,5 @@ Route::put('/{id}', [MajorsController::class, 'update']);
 
 Route::delete('/{id}', [MajorsController::class, 'delete']);
 
+Route::post('/delete/{id}', [MajorsController::class, 'deleteAndRedirect'])->name('majors.api.delete.redirect');
+

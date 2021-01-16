@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PatternsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (){
@@ -22,6 +23,6 @@ Route::put('/{id}', function ($id) {
     dd('update pattern with id: ' . $id);
 });
 
-Route::delete('/{id}', function ($id) {
-    dd('delete pattern with id: ' . $id);
-});
+Route::delete('/{id}', [PatternsController::class, 'deleteById']);
+
+Route::post('/delete/{id}', [PatternsController::class, 'deleteAndRedirect'])->name('patterns.api.delete.redirect');
