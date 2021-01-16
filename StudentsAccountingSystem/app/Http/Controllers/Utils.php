@@ -46,6 +46,29 @@ class Utils
         return $infoStr;
     }
 
+    public static function studentsForGroupAndYear(GroupsToYear $groupsToYear)
+    {
+        $startDate = self::createFirstDateFromId($groupsToYear->year_id);
+        return StudentToGroup::where('start_date', $startDate)->where('group_id', $groupsToYear->group_id)->get();
+    }
+
+    public static function academicYearFromDate($date) {
+        $parsed = date_parse($date);
+
+        if ($parsed["month"] >= 9)
+            $startYear = $parsed["year"];
+        else
+            $startYear = $parsed["year"] - 1;
+
+        return AcademicYear::where('start_year', $startYear)->first();
+    }
+
+    public static function getGroupName(int $groupId, int $yearId)
+    {
+        $group = GroupsToYear::with('group.pattern')->where('group_id', $groupId)->where('year_id', $yearId)->first();
+        return str_replace("*", $group->grade, $group->group->pattern->pattern);
+    }
+
     public static function getCountInfo(GroupsToYear $groupsToYear) : string
     {
         $students = self::studentsForGroupAndYear($groupsToYear);

@@ -25,6 +25,7 @@
             </nav>
         </div>
     </div>
+
     <div class="card">
         <div class="card-header">
             <h2>Информация о студенте</h2>
@@ -45,6 +46,39 @@
             <dl class="row mb-1">
                 <dt class="col-sm-2">Номер ЗК:</dt>
                 <dd class="col-sm-10">{{$student->student_number}}</dd>
+            </dl>
+            <dl class="mb-1">
+                <p class="h3" style="text-align: center">История переводов и отчислений</p>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Группа</th>
+                        <th scope="col">Дата зачисления</th>
+                        <th scope="col">Дата перевода/отчисления</th>
+                        <th scope="col">Причина отчисления</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($studentToGroups as $st)
+                        <div style="display: none">{{ $year = \App\Http\Controllers\Utils::academicYearFromDate($st->start_date) }}</div>
+                        <tr>
+                            <td class="text-primary" style="font-weight: bold">
+                                <a href="{{route('groups.info', ["year" => $year->id, "id" => $st->group_id])}}">
+                                    {{ \App\Http\Controllers\Utils::getGroupName($st->group_id, $year->id) }}
+                                </a>
+                            </td>
+                            <td>{{$st->start_date}}</td>
+                            <td>{{$st->end_date}}</td>
+                            <td>@if($st->expel_reason_id)
+                                    {{$expelReasons[$st->expel_reason_id]}}
+                                @else
+                                    {{""}}
+                            @endif</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </dl>
         </div>
         <div class="card-footer">
