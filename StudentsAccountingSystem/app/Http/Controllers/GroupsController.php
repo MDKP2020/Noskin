@@ -59,7 +59,8 @@ class GroupsController extends Controller
 
     public function studentPage(int $year_id, int $group_id, int $student_id) {
         $student = Student::find($student_id);
-        return view('groups.student', compact('student'));
+        $group = $this->getGroup($year_id, $group_id);
+        return view('groups.student', compact('student', 'group', 'year_id'));
     }
 
     public function newStudent(int $year_id, int $id, string $errorMessage = "") {
