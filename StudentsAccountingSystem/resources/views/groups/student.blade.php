@@ -76,3 +76,20 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(() => {
+            $('.js-delete-btn').on('click', () => {
+                $.ajax({
+                    url: "{{route('students.api.delete', ['id' => $student->id])}}",
+                    type: 'DELETE',
+                    success: function (data) {
+                        console.log(data)
+                        window.location.href = "{{route('groups.info', ['year' => $year_id, 'id' => $group->group->id])}}";
+                    }
+                })
+            })
+        })
+    </script>
+@endpush
