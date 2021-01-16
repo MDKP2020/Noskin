@@ -38,11 +38,12 @@
                 @foreach($group->group->students as $student)
                     <tr class="tr">
                         <th scope="row">
-                            <input type="checkbox" name="select[]" class="js-user-item" value="{{$student->id}}"/>
+                            <input type="checkbox" name="select[]" class="js-user-item" value="{{$student}}"/>
                         </th>
                         <td class="align-middle">{{$student->second_name . " " . $student->first_name . " " . $student->patronymic}}</td>
                         <td class="text-right">
-                            <a class="btn btn-outline-primary" href="{{route('group.student', ['year' => $year_id, 'group_id' => $group->group->id, 'id' => $student->id])}}">Перейти</a>
+                            <a class="btn btn-outline-primary"
+                               href="{{route('group.student', ['year' => $year_id, 'group_id' => $group->group->id, 'id' => $student->id])}}">Перейти</a>
                         </td>
                     </tr>
                 @endforeach
@@ -53,7 +54,8 @@
             <div class="row justify-content-end">
                 <div class="cel">
                     <button type="button" data-toggle="modal" data-target='.transfer_modal'
-                            class="js-transfer-modal-button btn btn-primary mr-1" disabled>Первести студента(ов) на следующий курс
+                            class="js-transfer-modal-button btn btn-primary mr-1" disabled>Первести студента(ов) на
+                        следующий курс
                     </button>
                     <button type="button" data-toggle="modal" data-target='.expel_modal'
                             class="js-expel-modal-button btn btn-outline-dark" disabled>Отчислить
@@ -96,6 +98,9 @@
                     </div>
                     <div class="modal-body">
                         <p>Вы уверены что хотите первести эти группы на следющий курс?</p>
+                        <ul class="js-transfer-users-list list-unstyled">
+
+                        </ul>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
@@ -110,6 +115,19 @@
 @push('scripts')
     <script>
         $(document).ready(() => {
+            $('.js-transfer-modal-button').on('click', () => {
+                $('.js-transfer-users-list').empty();
+                let selectedUsers = []
+                $('.js-user-item').each((index, item) => {
+                    if (item.checked) {
+                        selectedUsers.push(JSON.parse(item.value));
+                    }
+                });
+                selectedUsers.forEach((item) => {
+                    $('.js-transfer-users-list').append(`<li><b>${item.second_name} ${item.first_name} ${item.patronymic}</b></li>`)
+                });
+            });
+
             $('.js-header-checkbox').on('click', () => {
                 const isChecked = $('.js-header-checkbox')[0].checked
                 let checkboxes = []
@@ -119,8 +137,8 @@
                 });
 
                 let checkedCount = 0;
-                for(let i = 0; i < checkboxes.length; ++i) {
-                    if(checkboxes[i].checked) {
+                for (let i = 0; i < checkboxes.length; ++i) {
+                    if (checkboxes[i].checked) {
                         checkedCount++;
                     }
                 }
@@ -131,11 +149,13 @@
 
             $('.js-user-item').on('click', () => {
                 let checkboxes = []
-                $('.js-user-item').each((index, data) => { checkboxes.push(data) })
+                $('.js-user-item').each((index, data) => {
+                    checkboxes.push(data)
+                })
 
                 let checkedCount = 0;
-                for(let i = 0; i < checkboxes.length; ++i) {
-                    if(checkboxes[i].checked) {
+                for (let i = 0; i < checkboxes.length; ++i) {
+                    if (checkboxes[i].checked) {
                         checkedCount++;
                     }
                 }
@@ -147,20 +167,20 @@
             })
 
             $('.js-expel-btn').on('click', () => {
-                const ids = [];
+                const selectedUsers = [];
                 $('.js-user-item').each((index, item) => {
                     if (item.checked) {
-                        ids.push(item.value)
+                        selectedUsers.push(JSON.parse(item.value));
                     }
                 })
-                console.log(ids)
+                console.info(selectedUsers);
                 $.ajax({
                     url: "{{route('groups.students.expel')}}",
                     type: "POST",
                     data: {
                         group_id: "{{$group->group->id}}",
                         expel: 1,
-                        select: ids,
+                        select: selectedUsers.map((item) => item.id),
                         expel_reason_id: $('.js-expel-reason-select')[0].value
                     },
                     dataType: 'json',
@@ -172,19 +192,20 @@
             });
 
             $('.js-transfer-btn').on('click', () => {
-                const ids = [];
+                const selectedUsers = [];
                 $('.js-user-item').each((index, item) => {
                     if (item.checked) {
-                        ids.push(item.value)
+                        selectedUsers.push(JSON.parse(item.value));
                     }
                 })
-                console.log(ids)
+                console.log(selectedUsers);
+
                 $.ajax({
                     url: "{{route('groups.students.transfer')}}",
                     type: "POST",
                     data: {
                         expel: 1,
-                        select: ids
+                        select: selectedUsers.map((item) => item.id)
                     },
                     dataType: 'json',
                     success: function (data) {
