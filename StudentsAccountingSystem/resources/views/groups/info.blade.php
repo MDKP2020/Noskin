@@ -73,6 +73,10 @@
                         <h5 class="modal-title">Подвтердите действие</h5>
                     </div>
                     <div class="modal-body">
+                        <p>Вы дейстивтельно хотите отчислить студента(ов)?</p>
+                        <ul class="js-expel-users-list list-unstyled">
+
+                        </ul>
                         <p>Выберите причину отчисления</p>
                         <select name="expel_reason" class="js-expel-reason-select custom-select">
                             @foreach($expelReasons as $expelReason)
@@ -115,6 +119,19 @@
 @push('scripts')
     <script>
         $(document).ready(() => {
+            $('.js-expel-modal-button').on('click', () => {
+                $('.js-expel-users-list').empty();
+                let selectedUsers = []
+                $('.js-user-item').each((index, item) => {
+                    if (item.checked) {
+                        selectedUsers.push(JSON.parse(item.value));
+                    }
+                });
+                selectedUsers.forEach((item) => {
+                    $('.js-expel-users-list').append(`<li><b>${item.second_name} ${item.first_name} ${item.patronymic}</b></li>`)
+                });
+            });
+
             $('.js-transfer-modal-button').on('click', () => {
                 $('.js-transfer-users-list').empty();
                 let selectedUsers = []
