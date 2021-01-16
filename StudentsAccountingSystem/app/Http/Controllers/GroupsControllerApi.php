@@ -9,17 +9,21 @@ class GroupsControllerApi extends Controller
 {
     public function expelStudents(Request $request)
     {
-        if (!empty($request['select']) && !empty($request['group_id']) && !empty($request['expel_reason_id'])) {
-            $groupId = $request['group_id'];
-            foreach ($request['select'] as $item) {
-                $stg = StudentToGroup::where('group_id', $groupId)->where('student_id', $item)->first();
-                $stg->end_date = date('Y-m-d');
-                $stg->expel_reason_id = $request['expel_reason_id'];
-                $stg->save();
-            }
-            return response()->json(["data" => "expel success"]);
+        if (empty($request['select']) || empty($request['group_id']) || empty($request['expel_reason_id']) || empty($request['year_id'])) {
+            return response()->json(["data" => "fail"]);
         }
-        return response()->json(["data" => "fail"]);
+
+        $groupId = $request['group_id'];
+        $yearId = $request['year_id'];
+        foreach ($request['select'] as $item) {
+            $startDate = Utils::createFirstDateFromId($yearId);
+            $stg = StudentToGroup::where('group_id', $groupId)->where('student_id', $item)->where('start_date', $startDate)->first();
+            $currentYear = AcademicYear::where('id', $yearId)->first();
+            $stg->end_date = Utils::createLastDate($currentYear);
+            $stg->expel_reason_id = $request['expel_reason_id'];
+            $stg->save();
+        }
+        return response()->json(["data" => "expel success"]);
     }
 
     public function transferStudents(Request $request)
