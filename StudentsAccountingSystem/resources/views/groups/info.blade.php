@@ -54,7 +54,7 @@
             <div class="row justify-content-end">
                 <div class="cel">
                     <button type="button" data-toggle="modal" data-target='.transfer_modal'
-                            class="js-transfer-modal-button btn btn-primary mr-1" disabled>Первести студента(ов) на
+                            class="js-transfer-modal-button btn btn-primary mr-1" disabled>Перевести студента(ов) на
                         следующий курс
                     </button>
                     <button type="button" data-toggle="modal" data-target='.expel_modal'
