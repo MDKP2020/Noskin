@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GroupsController;
+use App\Http\Controllers\GroupsControllerApi;
 use App\Http\Controllers\MajorsController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,8 @@ Route::post('/groups/create', [GroupsController::class, 'createFromForm'])->name
 Route::get('/groups/show/{year}/{id}', [GroupsController::class, 'groupPage'])->name('groups.info');
 Route::get('/groups/new/{year}/{id}', [GroupsController::class, 'newStudent'])->name('groups.new');
 Route::post('/groups/new/', [GroupsController::class, 'newStudentFromForm'])->name('groups.newStudentFromForm');
+
+Route::post('/groups/students/expel', [GroupsControllerApi::class, 'expelStudents'])->name('groups.students.expel');
+Route::post('/groups/students/transfer', [GroupsControllerApi::class, 'transferStudents'])->name('groups.students.transfer');
+
+Route::get('/groups/students/{year}/{group_id}/{id}', [GroupsController::class, 'studentPage'])->name('group.student');

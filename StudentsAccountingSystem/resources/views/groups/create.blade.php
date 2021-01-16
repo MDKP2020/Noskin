@@ -12,11 +12,10 @@
     </div>
 
     <div class="card">
-        <form method="post" action="{{route('groups.createFromForm')}}" class="m-4">
+        <form method="post" action="{{route('groups.createFromForm')}}">
             @csrf
-            <div class="card-body p-0">
-                <div class="m-4">
-
+            <div class="card-body p-4">
+                <div>
                     <div class="form-group" style="max-width: 200px">
                         <label for="yearOfStudySelect">Год</label>
                         <select name="academic_year_id" class="form-control" id="yearOfStudySelect">
@@ -54,10 +53,10 @@
                 </div>
             </div>
             <div class="card-footer text-muted">
-                <div class="row justify-content-end">
+                <div class="row justify-content-end px-4">
                     <div class="cel">
                         <button type="submit" class="btn btn-primary mr-1">Сохранить</button>
-                        <a href="" class="btn btn-outline-dark">Отменить</a>
+                        <a href="{{route('groups.index')}}" class="btn btn-outline-dark">Отменить</a>
                     </div>
                 </div>
             </div>

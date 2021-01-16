@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,6 +27,4 @@ Route::put('/{id}', function ($id) {
    dd('Update user with id' . $id);
 });
 
-Route::delete('/{id}', function ($id) {
-   dd('delete user with id: ' . $id);
-});
+Route::delete('/{id}',[StudentsController::class, 'deleteById'])->name('students.api.delete');

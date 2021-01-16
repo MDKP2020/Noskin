@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateGroup;
 use App\Http\Requests\NewStudentToGroupRequest;
 use App\Models\AcademicYear;
+use App\Models\ExpelReasons;
 use App\Models\Group;
 use App\Models\GroupPattern;
 use App\Models\GroupsToYear;
@@ -52,7 +53,14 @@ class GroupsController extends Controller
     public function groupPage(int $year_id, int $id)
     {
         $group = $this->getGroup($year_id, $id);
-        return view('groups.info', compact('group'));
+        $expelReasons = ExpelReasons::all();
+        return view('groups.info', compact('group', 'expelReasons', 'year_id'));
+    }
+
+    public function studentPage(int $year_id, int $group_id, int $student_id) {
+        $student = Student::find($student_id);
+        $group = $this->getGroup($year_id, $group_id);
+        return view('groups.student', compact('student', 'group', 'year_id'));
     }
 
     public function newStudent(int $year_id, int $id, string $errorMessage = "") {
@@ -67,21 +75,11 @@ class GroupsController extends Controller
         $group_id = $request['group_id'];
         $year_id = $request['year_id'];
 
-        $same_student = Group::find($group_id)->students()
-                        ->where('first_name', $validated['first_name'])
-                        ->where('second_name', $validated['second_name'])
-                        ->where('patronymic', $validated['patronymic'])
-                        ->first();
-
-        if ($same_student != null)
-        {
-            return $this->newStudent($year_id, $group_id, "Студент с таким именем уже существует!");
-        }
-
         $student = new Student;
         $student->first_name = $validated['first_name'];
         $student->second_name = $validated['second_name'];
         $student->patronymic = $validated['patronymic'];
+        $student->student_number = $validated['student_number'];
         $student->save();
 
         $start_date = date('Y-m-d');
