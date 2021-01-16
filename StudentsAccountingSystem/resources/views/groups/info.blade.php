@@ -158,6 +158,7 @@
                     url: "{{route('groups.students.expel')}}",
                     type: "POST",
                     data: {
+                        group_id: "{{$group->group->id}}",
                         expel: 1,
                         select: ids,
                         expel_reason_id: $('.js-expel-reason-select')[0].value
