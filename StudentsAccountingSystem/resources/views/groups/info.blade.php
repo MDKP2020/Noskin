@@ -100,10 +100,10 @@
             <form id="transferform">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Подвтердите действие</h5>
+                        <h5 class="modal-title">Подтвердите действие</h5>
                     </div>
                     <div class="modal-body">
-                        <p>Вы уверены что хотите первести эти группы на следющий курс?</p>
+                        <p>Вы уверены что хотите первести эти группы на следующий курс?</p>
                         <ul class="js-transfer-users-list list-unstyled">
 
                         </ul>
