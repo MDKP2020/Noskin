@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateExpelReason;
 use App\Models\ExpelReasons;
-use Illuminate\Http\Request;
 
 class ExpelReasonsController extends Controller
 {
@@ -14,6 +14,13 @@ class ExpelReasonsController extends Controller
 
     public function createPage() {
         return view('expel_reasons.create');
+    }
+
+    public function createFromForm(CreateExpelReason $request) {
+        $expelReason = new ExpelReasons;
+        $expelReason->reason = $request['reason'];
+        $expelReason->save();
+        return redirect(route('reasons.index'));
     }
 
     public function deleteById(int $id) {

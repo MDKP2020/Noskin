@@ -31,6 +31,7 @@ Route::get('/patterns/create', [PatternsController::class, 'createPage'])->name(
 
 Route::get('/reasons', [ExpelReasonsController::class, 'indexPage'])->name('reasons.index');
 Route::get('/reasons/create', [ExpelReasonsController::class, 'createPage'])->name('reasons.create');
+Route::post('/reasons/create', [ExpelReasonsController::class, 'createFromForm'])->name('reasons.createFromForm');
 
 Route::get('/groups', [GroupsController::class, 'indexPage'])->name('groups.index');
 Route::get('/groups/create', [GroupsController::class, 'createPage'])->name('groups.create');
