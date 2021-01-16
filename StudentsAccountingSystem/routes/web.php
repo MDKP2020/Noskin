@@ -28,6 +28,7 @@ Route::post('/majors/create', [MajorsController::class, 'createFromForm'])->name
 
 Route::get('/patterns', [PatternsController::class, 'indexPage'])->name('patterns.index');
 Route::get('/patterns/create', [PatternsController::class, 'createPage'])->name('patterns.create');
+Route::post('/patterns/create', [PatternsController::class, 'createFromForm'])->name('patterns.createFromForm');
 
 Route::get('/reasons', [ExpelReasonsController::class, 'indexPage'])->name('reasons.index');
 Route::get('/reasons/create', [ExpelReasonsController::class, 'createPage'])->name('reasons.create');
