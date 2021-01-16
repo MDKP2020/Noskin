@@ -62,10 +62,10 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Подвтердите удаление</h5>
+                    <h5 class="modal-title">Подтвердите удаление</h5>
                 </div>
                 <div class="modal-body">
-                    <p>Вы дейтсвительно хотите удалить студента: <b>{{$student->second_name}} {{$student->first_name}} {{$student->patronymic}}</b>?</p>
+                    <p>Вы действительно хотите удалить студента: <b>{{$student->second_name}} {{$student->first_name}} {{$student->patronymic}}</b>?</p>
                     <p>Он также будет удален из всех групп в которых он находится</p>
                 </div>
                 <div class="modal-footer">
