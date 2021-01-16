@@ -10,7 +10,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 bg-white p-0">
                     <li class="breadcrumb-item">
-                        <a class="h1 text-primary" href="{{route('groups.index')}}">Группы</a>
+                        <a class="h1 text-primary" href="{{route('groups.index', ['year_id' => $year_id])}}">Группы</a>
                     </li>
                     <li class="breadcrumb-item h1" aria-current="page">
                         <a class="h1 text-primary"
