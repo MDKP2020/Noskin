@@ -17,14 +17,9 @@ class GroupsControllerApi extends Controller
 
         $groupId = $request['group_id'];
         $yearId = $request['year_id'];
-        foreach ($request['select'] as $item) {
-            $startDate = Utils::createFirstDateFromId($yearId);
-            $stg = StudentToGroup::where('group_id', $groupId)->where('student_id', $item)->where('start_date', $startDate)->first();
-            $currentYear = AcademicYear::where('id', $yearId)->first();
-            $stg->end_date = Utils::createLastDate($currentYear);
-            $stg->expel_reason_id = $request['expel_reason_id'];
-            $stg->save();
-        }
+
+        self::expel($groupId, $yearId, $request['select'], $request['expel_reason_id']);
+
         return response()->json(["data" => "expel success"]);
     }
 
@@ -69,6 +64,18 @@ class GroupsControllerApi extends Controller
 
             $student->save();
             $newStudent->save();
+        }
+    }
+
+    public static function expel($groupId, $yearId, $students, $expelReasonId)
+    {
+        foreach ($students as $item) {
+            $startDate = Utils::createFirstDateFromId($yearId);
+            $stg = StudentToGroup::where('group_id', $groupId)->where('student_id', $item)->where('start_date', $startDate)->first();
+            $currentYear = AcademicYear::where('id', $yearId)->first();
+            $stg->end_date = Utils::createLastDate($currentYear);
+            $stg->expel_reason_id = $expelReasonId;
+            $stg->save();
         }
     }
 }
