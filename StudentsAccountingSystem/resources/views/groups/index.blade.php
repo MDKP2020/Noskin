@@ -105,7 +105,7 @@
         <div class="card-footer text-muted">
             <div class="row justify-content-end">
                 <div class="cel">
-                    <button class="js-transfer-button btn btn-primary mr-1" data-toggle="modal" data-target=".in-dev-modal" disabled>Первести группу на следующий курс</button>
+                    <button class="js-transfer-button btn btn-primary mr-1" data-toggle="modal" data-target=".in-dev-modal" disabled>Перевести группу на следующий курс</button>
                     <button class="js-expel-button btn btn-outline-dark" data-toggle="modal" data-target=".in-dev-modal" disabled>Отчислить</button>
                 </div>
             </div>
