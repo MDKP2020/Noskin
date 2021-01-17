@@ -16,7 +16,7 @@ class GroupsToYear extends Model
 
     public static function allGrades()
     {
-        return self::select('grade')->groupBy('grade')->get()->pluck('grade')->toArray();
+        return self::select('grade')->groupBy('grade')->orderBy('grade')->get()->pluck('grade')->toArray();
     }
 
     public function group()
