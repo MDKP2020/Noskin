@@ -118,7 +118,7 @@
                         <h5 class="modal-title">Подтвердите действие</h5>
                     </div>
                     <div class="modal-body">
-                        <p>Вы уверены что хотите первести эти группы на следующий курс?</p>
+                        <p>Вы уверены что хотите перевести этих студентов на следующий курс?</p>
                         <ul class="js-transfer-users-list list-unstyled">
 
                         </ul>
