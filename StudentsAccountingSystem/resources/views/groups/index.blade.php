@@ -34,6 +34,12 @@
         </div>
     </div>
 
+    @if (isset($errorMessage))
+        <div class="alert alert-danger" role="alert">
+            {{ $errorMessage }}
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-header">
             <form>

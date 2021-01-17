@@ -42,12 +42,17 @@ class GroupsController extends Controller
         $canBeTransferred = json_encode($canBeTransferred);
         $expelReasons = ExpelReasons::all();
 
-        return view('groups.index', compact('majors', 'groups', 'grades', 'academicYears', 'canBeTransferred', 'expelReasons'));
+        return view('groups.index', $request->all() + compact('majors', 'groups', 'grades', 'academicYears', 'canBeTransferred', 'expelReasons'));
     }
 
     public function createFromForm(CreateGroup $request)
     {
         $validated = $request->validated();
+        $groupName = self::hasSameGroup($validated);
+        if ($groupName != null) {
+            $errorMessage = "Группа " . $groupName . " уже существует в выбранном учебном году!";
+            return redirect()->route('groups.index', compact('errorMessage'));
+        }
         $group = new Group;
         $group->group_pattern_id = $validated['pattern_id'];
         $group->major_id = $validated['major_id'];
@@ -58,6 +63,22 @@ class GroupsController extends Controller
         $groupToYears->grade = $validated['grade'];
         $groupToYears->save();
         return redirect()->route('groups.index');
+    }
+
+    private static function hasSameGroup($request): ?string
+    {
+        $pattern = GroupPattern::find($request['pattern_id'])->first()->pattern;
+        $groupName = str_replace("*", $request['grade'], $pattern);
+
+        $groups = GroupsToYear::where('year_id', $request['academic_year_id'])->with('group.pattern')->get();
+
+        foreach ($groups as $group) {
+            $currentGroupName = str_replace("*", $group->grade, $group->group->pattern->pattern);
+            if (strcmp($groupName, $currentGroupName) === 0)
+                return $groupName;
+        }
+
+        return null;
     }
 
     public function groupPage(int $year_id, int $id)
