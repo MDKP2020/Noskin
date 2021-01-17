@@ -196,7 +196,11 @@
                     checkboxes.push(item);
                 })
                 const isChecked = $(".js-header-checkbox")[0].checked
-                checkboxes.forEach((item) => item.checked = isChecked);
+                checkboxes.forEach((item) => {
+                    if (!item.disabled) {
+                        item.checked = isChecked
+                    }
+                });
 
                 let checkedCount = 0;
                 checkboxes.forEach((item) => {
@@ -224,7 +228,7 @@
 
                 let checkedCount = 0;
                 checkboxes.forEach((item) => {
-                    if (item.checked) checkedCount++;
+                    if (item.checked && !item.disabled) checkedCount++;
                 })
 
                 let anyCheckedCannotBeTransferred = false;
