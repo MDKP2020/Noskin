@@ -76,7 +76,6 @@
                     <button type="button" data-toggle="modal" data-target='.expel_modal'
                             class="js-expel-modal-button btn btn-outline-dark" disabled>Отчислить
                     </button>
-
                 </div>
             </div>
         </div>

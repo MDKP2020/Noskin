@@ -120,6 +120,6 @@ class GroupsController extends Controller
 
     public function getAll(Request $request)
     {
-        return GroupsToYear::filter($request->all())->with('group.students')->get();
+        return GroupsToYear::filter($request->all())->with('group.students')->with('group.pattern')->get();
     }
 }

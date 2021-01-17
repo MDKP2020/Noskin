@@ -84,7 +84,7 @@
                     @if($group->year_id == ($_GET['year_id'] ?? $academicYear[0]))
                         <tr class="tr">
                             <th scope="row">
-                                <input type="checkbox" class="js-group-item"
+                                <input type="checkbox" class="js-group-item" value="{{$group}}"
                                        @if (! \App\Http\Controllers\Utils::canBeTransferredOrExpelled($group))
                                            disabled
                                        @endif
@@ -105,7 +105,7 @@
         <div class="card-footer text-muted">
             <div class="row justify-content-end">
                 <div class="cel">
-                    <button class="js-transfer-button btn btn-primary mr-1" data-toggle="modal" data-target=".in-dev-modal" disabled>Перевести группу на следующий курс</button>
+                    <button class="js-transfer-modal-button btn btn-primary mr-1" data-toggle="modal" data-target=".transfer_modal" disabled>Перевести группу на следующий курс</button>
                     <button class="js-expel-button btn btn-outline-dark" data-toggle="modal" data-target=".in-dev-modal" disabled>Отчислить</button>
                 </div>
             </div>
@@ -127,6 +127,29 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade transfer_modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <form id="transferform">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Подтвердите действие</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Вы уверены что хотите перевести этих студентов на следующий курс?</p>
+                        <ul class="js-transfer-group-list list-unstyled">
+
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                        <input type="button" class="js-transfer-btn btn btn-primary" value="Подтвердить">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 @endsection
 
 @push('scripts')
@@ -145,7 +168,7 @@
                     if (item.checked) checkedCount++;
                 })
 
-                $(".js-transfer-button")[0].disabled = checkedCount === 0
+                $(".js-transfer-modal-button")[0].disabled = checkedCount === 0
                 $(".js-expel-button")[0].disabled = checkedCount === 0
             });
 
@@ -160,13 +183,50 @@
                     if (item.checked) checkedCount++;
                 })
 
-                $(".js-transfer-button")[0].disabled = checkedCount === 0
+                $(".js-transfer-modal-button")[0].disabled = checkedCount === 0
                 $(".js-expel-button")[0].disabled = checkedCount === 0
 
                 $(".js-header-checkbox")[0].checked = checkedCount === checkboxes.length
             })
 
+            $('.js-transfer-modal-button').on('click', () => {
+                $('.js-transfer-group-list').empty();
+                let selectedGroups = []
+                $('.js-group-item').each((index, item) => {
+                    if (item.checked) {
+                        selectedGroups.push(JSON.parse(item.value));
+                    }
+                });
 
+                selectedGroups.forEach((item) => {
+                    $('.js-transfer-group-list').append(`<li><b>${item.group.pattern.pattern}</b></li>`.replace("*", item.grade))
+                });
+            });
+
+            $('.js-transfer-btn').on('click', () => {
+                const selectedGroups = [];
+                $('.js-group-item').each((index, item) => {
+                    if (item.checked && !item.disabled) {
+                        selectedGroups.push(JSON.parse(item.value));
+                    }
+                })
+                console.log(selectedGroups);
+
+                $.ajax({
+                    url: "{{route('groups.transfer')}}",
+                    type: "POST",
+                    data: {
+                        expel: 1,
+                        year_id: {{$_GET['year_id'] ?? $academicYear[0]}},
+                        select: selectedGroups.map((item) => item.id)
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        window.location.reload();
+                    }
+                });
+            })
         })
     </script>
 @endpush

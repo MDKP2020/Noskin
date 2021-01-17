@@ -71,6 +71,8 @@ class Utils
 
     public static function canBeTransferredOrExpelled(GroupsToYear $groupsToYear) : bool
     {
+        if ($groupsToYear->grade == 4)
+            return false;
         $students = self::studentsForGroupAndYear($groupsToYear);
         $otherCount = 0;
 
