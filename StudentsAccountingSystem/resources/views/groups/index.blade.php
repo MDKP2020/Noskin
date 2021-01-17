@@ -83,7 +83,13 @@
                 @foreach($groups as $group)
                     @if($group->year_id == ($_GET['year_id'] ?? $academicYear[0]))
                         <tr class="tr">
-                            <th scope="row"><input type="checkbox" class="js-group-item"/></th>
+                            <th scope="row">
+                                <input type="checkbox" class="js-group-item"
+                                       @if (! \App\Http\Controllers\Utils::canBeTransferredOrExpelled($group))
+                                           disabled
+                                       @endif
+                                />
+                            </th>
                             <td class="align-middle">{{str_replace("*", $group->grade, $group->group->pattern->pattern)}}</td>
                             <td class="align-middle">{{\App\Http\Controllers\Utils::getCountInfo($group)}}</td>
                             <td class="text-right">
