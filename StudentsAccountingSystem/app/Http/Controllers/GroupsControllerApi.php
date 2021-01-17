@@ -17,14 +17,9 @@ class GroupsControllerApi extends Controller
 
         $groupId = $request['group_id'];
         $yearId = $request['year_id'];
-        foreach ($request['select'] as $item) {
-            $startDate = Utils::createFirstDateFromId($yearId);
-            $stg = StudentToGroup::where('group_id', $groupId)->where('student_id', $item)->where('start_date', $startDate)->first();
-            $currentYear = AcademicYear::where('id', $yearId)->first();
-            $stg->end_date = Utils::createLastDate($currentYear);
-            $stg->expel_reason_id = $request['expel_reason_id'];
-            $stg->save();
-        }
+
+        self::expel($groupId, $yearId, $request['select'], $request['expel_reason_id']);
+
         return response()->json(["data" => "expel success"]);
     }
 
@@ -35,6 +30,62 @@ class GroupsControllerApi extends Controller
         }
         $groupId = $request['group_id'];
         $yearId = $request['year_id'];
+
+        self::transfer($groupId, $yearId, $request['select']);
+
+        return response()->json(["data" => "transfer success"]);
+    }
+
+    public function transferGroups(Request $request)
+    {
+        if (empty($request['select']) || empty($request['year_id'])) {
+            return response()->json(["data" => "fail"]);
+        }
+        $yearId = $request['year_id'];
+
+        foreach ($request['select'] as $group) {
+            $currentGroup = GroupsToYear::where('id', $group)->first();
+            $groupStudents = Utils::studentsForGroupAndYear($currentGroup);
+
+            $studentsToTransfer = [];
+
+            foreach ($groupStudents as $student) {
+                if (!Utils::isTransferred($student) && !Utils::isExpelled($student))
+                    array_push($studentsToTransfer, $student->student_id);
+            }
+
+            self::transfer($currentGroup->group_id, $yearId, $studentsToTransfer);
+        }
+
+        return response()->json(["data" => "transfer success"]);
+    }
+
+    public function expelGroups(Request $request)
+    {
+        if (empty($request['select']) || empty($request['expel_reason_id']) || empty($request['year_id'])) {
+            return response()->json(["data" => "fail"]);
+        }
+        $yearId = $request['year_id'];
+
+        foreach ($request['select'] as $group) {
+            $currentGroup = GroupsToYear::where('id', $group)->first();
+            $groupStudents = Utils::studentsForGroupAndYear($currentGroup);
+
+            $studentsToTransfer = [];
+
+            foreach ($groupStudents as $student) {
+                if (!Utils::isTransferred($student) && !Utils::isExpelled($student))
+                    array_push($studentsToTransfer, $student->student_id);
+            }
+
+            self::expel($currentGroup->group_id, $yearId, $studentsToTransfer, $request['expel_reason_id']);
+        }
+
+        return response()->json(["data" => "transfer success"]);
+    }
+
+    public static function transfer($groupId, $yearId, $students)
+    {
         $currentYear = AcademicYear::where('id', $yearId)->first();
         $nextYear = AcademicYear::where('start_year', $currentYear->start_year + 1)->firstOrCreate(['start_year' => $currentYear->start_year + 1]);
         $nextYear->save();
@@ -48,9 +99,9 @@ class GroupsControllerApi extends Controller
         );
         $nextGroup->save();
 
-        foreach ($request['select'] as $student_id) {
+        foreach ($students as $studentId) {
             $startDate = Utils::createFirstDateFromId($yearId);
-            $student = StudentToGroup::where('group_id', $groupId)->where('student_id', $student_id)->where('start_date', $startDate)->first();
+            $student = StudentToGroup::where('group_id', $groupId)->where('student_id', $studentId)->where('start_date', $startDate)->first();
             $student->next_group = $groupId;
             $student->end_date = Utils::createLastDate($currentYear);
 
@@ -62,7 +113,17 @@ class GroupsControllerApi extends Controller
             $student->save();
             $newStudent->save();
         }
+    }
 
-        return response()->json(["data" => "transfer success"]);
+    public static function expel($groupId, $yearId, $students, $expelReasonId)
+    {
+        foreach ($students as $item) {
+            $startDate = Utils::createFirstDateFromId($yearId);
+            $stg = StudentToGroup::where('group_id', $groupId)->where('student_id', $item)->where('start_date', $startDate)->first();
+            $currentYear = AcademicYear::where('id', $yearId)->first();
+            $stg->end_date = Utils::createLastDate($currentYear);
+            $stg->expel_reason_id = $expelReasonId;
+            $stg->save();
+        }
     }
 }

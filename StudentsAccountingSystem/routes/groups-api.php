@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [GroupsController::class, 'getAll']);
 
 Route::get('/{yearId}', function ($yearId) {
-   dd('all groups for year: ' . $yearId);
+    dd('all groups for year: ' . $yearId);
 });
 
 Route::get('/{yearId}/major/{majorId}', function ($yearId, $majorId) {

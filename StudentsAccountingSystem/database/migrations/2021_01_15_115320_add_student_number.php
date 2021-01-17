@@ -26,7 +26,7 @@ class AddStudentNumber extends Migration
     public function down()
     {
         Schema::table('students', function (Blueprint $table) {
-           $table->dropColumn('student_number');
+            $table->dropColumn('student_number');
         });
     }
 }

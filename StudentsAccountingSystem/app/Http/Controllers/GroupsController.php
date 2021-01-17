@@ -18,10 +18,10 @@ class GroupsController extends Controller
 {
     public function indexPage(Request $request)
     {
-        if(empty($request->get('year_id'))) {
+        if (empty($request->get('year_id'))) {
             $current_year = date('Y');
             $current_month = date('n');
-            if($current_month > 8) {
+            if ($current_month > 8) {
                 $year_id = AcademicYear::where('start_year', '=', $current_year)->first()->id;
             } else {
                 $year_id = AcademicYear::where('start_year', '=', $current_year - 1)->first()->id;
@@ -32,11 +32,27 @@ class GroupsController extends Controller
         $grades = GroupsToYear::allGrades();
         $majors = Major::all();
         $academicYears = AcademicYear::all();
-        return view('groups.index', compact('majors', 'groups', 'grades', 'academicYears'));
+
+        $canBeTransferred = [];
+
+        foreach ($groups as $group) {
+            $canBeTransferred[$group->id] = Utils::canBeTransferred($group);
+        }
+
+        $canBeTransferred = json_encode($canBeTransferred);
+        $expelReasons = ExpelReasons::all();
+
+        return view('groups.index', $request->all() + compact('majors', 'groups', 'grades', 'academicYears', 'canBeTransferred', 'expelReasons'));
     }
 
-    public function createFromForm(CreateGroup $request) {
+    public function createFromForm(CreateGroup $request)
+    {
         $validated = $request->validated();
+        $groupName = self::hasSameGroup($validated);
+        if ($groupName != null) {
+            $errorMessage = "Группа " . $groupName . " уже существует в выбранном учебном году!";
+            return redirect()->route('groups.index', compact('errorMessage'));
+        }
         $group = new Group;
         $group->group_pattern_id = $validated['pattern_id'];
         $group->major_id = $validated['major_id'];
@@ -49,6 +65,22 @@ class GroupsController extends Controller
         return redirect()->route('groups.index');
     }
 
+    private static function hasSameGroup($request): ?string
+    {
+        $pattern = GroupPattern::find($request['pattern_id'])->first()->pattern;
+        $groupName = str_replace("*", $request['grade'], $pattern);
+
+        $groups = GroupsToYear::where('year_id', $request['academic_year_id'])->with('group.pattern')->get();
+
+        foreach ($groups as $group) {
+            $currentGroupName = str_replace("*", $group->grade, $group->group->pattern->pattern);
+            if (strcmp($groupName, $currentGroupName) === 0)
+                return $groupName;
+        }
+
+        return null;
+    }
+
     public function groupPage(int $year_id, int $id)
     {
         $group = $this->getGroup($year_id, $id);
@@ -56,22 +88,23 @@ class GroupsController extends Controller
         return view('groups.info', compact('group', 'expelReasons', 'year_id'));
     }
 
-    public function studentPage(int $year_id, int $group_id, int $student_id) {
+    public function studentPage(int $year_id, int $group_id, int $student_id)
+    {
         $student = Student::find($student_id);
         $group = $this->getGroup($year_id, $group_id);
         $studentToGroups = StudentToGroup::where('student_id', $student_id)->get();
 
         $expelReasons = [];
 
-        foreach (ExpelReasons::all() as $expelReason)
-        {
+        foreach (ExpelReasons::all() as $expelReason) {
             $expelReasons[$expelReason->id] = $expelReason->reason;
         }
 
         return view('groups.student', compact('student', 'group', 'year_id', 'studentToGroups', 'expelReasons'));
     }
 
-    public function newStudent(int $year_id, int $id, string $errorMessage = "") {
+    public function newStudent(int $year_id, int $id, string $errorMessage = "")
+    {
         $group = $this->getGroup($year_id, $id);
         return view('groups.new-students', compact('group', 'year_id', 'id', 'errorMessage'));
     }
@@ -120,6 +153,6 @@ class GroupsController extends Controller
 
     public function getAll(Request $request)
     {
-        return GroupsToYear::filter($request->all())->with('group.students')->get();
+        return GroupsToYear::filter($request->all())->with('group.students')->with('group.pattern')->get();
     }
 }

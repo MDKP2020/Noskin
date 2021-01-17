@@ -10,11 +10,13 @@ class GroupPattern extends Model
     protected $guarded = [];
     public $timestamps = false;
 
-    public function groups() {
+    public function groups()
+    {
         return $this->hasMany(Group::class);
     }
 
-    public function major() {
+    public function major()
+    {
         return $this->belongsTo(Major::class);
     }
 }

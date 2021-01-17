@@ -14,11 +14,13 @@ class GroupsToYear extends Model
     protected $guarded = [];
     public $timestamps = false;
 
-    public static function allGrades() {
+    public static function allGrades()
+    {
         return self::select('grade')->groupBy('grade')->get()->pluck('grade')->toArray();
     }
 
-    public function group() {
+    public function group()
+    {
         return $this->belongsTo(Group::class);
     }
 

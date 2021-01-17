@@ -9,7 +9,8 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 bg-white p-0">
-                    <li class="breadcrumb-item"><a class="h1 text-primary" href="{{route('groups.index', ['year_id' => $year_id])}}">Группы</a>
+                    <li class="breadcrumb-item"><a class="h1 text-primary"
+                                                   href="{{route('groups.index', ['year_id' => $year_id])}}">Группы</a>
                     </li>
                     <li class="breadcrumb-item active h1"
                         aria-current="page">{{str_replace("*", $group->grade, $group->group->pattern->pattern)}}</li>
@@ -38,27 +39,28 @@
                 <tbody>
                 @foreach($group->group->students as $student)
                     @if (\App\Http\Controllers\Utils::createFirstDateFromId($year_id) == $student->pivot->start_date)
-                    <tr class="tr">
-                        <th scope="row">
+                        <tr class="tr">
+                            <th scope="row">
 
-                            <input type="checkbox" name="select[]" class="js-user-item align-middle" value="{{$student}}"
-                                   @if (\App\Http\Controllers\Utils::isTransferredById($student->pivot->id)
-                                    || \App\Http\Controllers\Utils::isExpelledById($student->pivot->id) )
-                                disabled
-                                @endif
-                            />
+                                <input type="checkbox" name="select[]" class="js-user-item align-middle"
+                                       value="{{$student}}"
+                                       @if (\App\Http\Controllers\Utils::isTransferredById($student->pivot->id)
+                                        || \App\Http\Controllers\Utils::isExpelledById($student->pivot->id) )
+                                       disabled
+                                    @endif
+                                />
 
-                        </th>
-                        <td class="align-middle">{{$student->second_name . " " . $student->first_name . " " . $student->patronymic}}</td>
+                            </th>
+                            <td class="align-middle">{{$student->second_name . " " . $student->first_name . " " . $student->patronymic}}</td>
 
-                        <td id="info" class="align-middle">
-                            {{  \App\Http\Controllers\Utils::getInfoString($student)  }}
-                        </td>
-                        <td class="text-right">
-                            <a class="btn btn-outline-primary"
-                               href="{{route('group.student', ['year' => $year_id, 'group_id' => $group->group->id, 'id' => $student->id])}}">Перейти</a>
-                        </td>
-                    </tr>
+                            <td id="info" class="align-middle">
+                                {{  \App\Http\Controllers\Utils::getInfoString($student)  }}
+                            </td>
+                            <td class="text-right">
+                                <a class="btn btn-outline-primary"
+                                   href="{{route('group.student', ['year' => $year_id, 'group_id' => $group->group->id, 'id' => $student->id])}}">Перейти</a>
+                            </td>
+                        </tr>
                     @endif
                 @endforeach
                 </tbody>
@@ -68,15 +70,14 @@
             <div class="row justify-content-end">
                 <div class="cel">
                     @if ($group->grade != 4)
-                    <button type="button" data-toggle="modal" data-target='.transfer_modal'
-                            class="js-transfer-modal-button btn btn-primary mr-1" disabled>Перевести студента(ов) на
-                        следующий курс
-                    </button>
+                        <button type="button" data-toggle="modal" data-target='.transfer_modal'
+                                class="js-transfer-modal-button btn btn-primary mr-1" disabled>Перевести студента(ов) на
+                            следующий курс
+                        </button>
                     @endif
                     <button type="button" data-toggle="modal" data-target='.expel_modal'
                             class="js-expel-modal-button btn btn-outline-dark" disabled>Отчислить
                     </button>
-
                 </div>
             </div>
         </div>
@@ -118,7 +119,7 @@
                         <h5 class="modal-title">Подтвердите действие</h5>
                     </div>
                     <div class="modal-body">
-                        <p>Вы уверены что хотите первести эти группы на следующий курс?</p>
+                        <p>Вы уверены что хотите перевести этих студентов на следующий курс?</p>
                         <ul class="js-transfer-users-list list-unstyled">
 
                         </ul>
@@ -166,8 +167,7 @@
                 const isChecked = $('.js-header-checkbox')[0].checked
                 let checkboxes = []
                 $('.js-user-item').each((index, item) => {
-                    if (!item.disabled)
-                    {
+                    if (!item.disabled) {
                         item.checked = isChecked;
                         checkboxes.push(item);
                     }

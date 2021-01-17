@@ -44,5 +44,7 @@ Route::post('/groups/new/', [GroupsController::class, 'newStudentFromForm'])->na
 
 Route::post('/groups/students/expel', [GroupsControllerApi::class, 'expelStudents'])->name('groups.students.expel');
 Route::post('/groups/students/transfer', [GroupsControllerApi::class, 'transferStudents'])->name('groups.students.transfer');
+Route::post('/groups/transfer', [GroupsControllerApi::class, 'transferGroups'])->name('groups.transfer');
+Route::post('/groups/expel', [GroupsControllerApi::class, 'expelGroups'])->name('groups.expel');
 
 Route::get('/groups/students/{year}/{group_id}/{id}', [GroupsController::class, 'studentPage'])->name('group.student');

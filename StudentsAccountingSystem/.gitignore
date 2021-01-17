@@ -502,3 +502,5 @@ yarn-error.log
 /StudentsAccountingSystem/package-lock.json
 /StudentsAccountingSystem/.idea/workspace.xml
 /package-lock.json
+/.idea/dataSources.xml
+/.idea/inspectionProfiles/Project_Default.xml

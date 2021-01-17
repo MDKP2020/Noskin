@@ -4,7 +4,7 @@ use App\Http\Controllers\StudentsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-   dd('get all students');
+    dd('get all students');
 });
 
 Route::get('/id/history', function ($id) {
@@ -12,19 +12,19 @@ Route::get('/id/history', function ($id) {
 });
 
 Route::get('/{id}', function ($id) {
-   dd('get student by id: '. $id);
+    dd('get student by id: ' . $id);
 });
 
 Route::post('/', function () {
-   dd('create student');
+    dd('create student');
 });
 
 Route::put('/{id}/transfer', function ($id) {
-   dd('transfer user with id: ' . $id);
+    dd('transfer user with id: ' . $id);
 });
 
 Route::put('/{id}', function ($id) {
-   dd('Update user with id' . $id);
+    dd('Update user with id' . $id);
 });
 
-Route::delete('/{id}',[StudentsController::class, 'deleteById'])->name('students.api.delete');
+Route::delete('/{id}', [StudentsController::class, 'deleteById'])->name('students.api.delete');
