@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-   dd('get all years');
+    dd('get all years');
 });
 
 Route::get('/{id}', function ($id) {

@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('title')
-   Добавление студента
+    Добавление студента
 @endsection
 
 @section('content')

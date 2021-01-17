@@ -43,15 +43,13 @@ class GroupsControllerApi extends Controller
         }
         $yearId = $request['year_id'];
 
-        foreach ($request['select'] as $group)
-        {
+        foreach ($request['select'] as $group) {
             $currentGroup = GroupsToYear::where('id', $group)->first();
             $groupStudents = Utils::studentsForGroupAndYear($currentGroup);
 
             $studentsToTransfer = [];
 
-            foreach ($groupStudents as $student)
-            {
+            foreach ($groupStudents as $student) {
                 if (!Utils::isTransferred($student) && !Utils::isExpelled($student))
                     array_push($studentsToTransfer, $student->student_id);
             }

@@ -38,7 +38,7 @@ class Group extends Model
 
     public function getGradeAttribute()
     {
-        if($this->relationLoaded('years')) {
+        if ($this->relationLoaded('years')) {
             return $this->years()->first()->grade ?? null;
         }
     }

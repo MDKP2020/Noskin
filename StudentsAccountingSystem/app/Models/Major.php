@@ -13,11 +13,13 @@ class Major extends Model
     protected $guarded = [];
     public $timestamps = false;
 
-    public function groupPatterns() {
+    public function groupPatterns()
+    {
         return $this->hasMany(GroupPattern::class);
     }
 
-    public function groups() {
+    public function groups()
+    {
         return $this->hasMany(Group::class);
     }
 }

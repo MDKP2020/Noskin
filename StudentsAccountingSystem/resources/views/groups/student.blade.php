@@ -61,7 +61,8 @@
                     <tbody>
 
                     @foreach($studentToGroups as $st)
-                        <div style="display: none">{{ $year = \App\Http\Controllers\Utils::academicYearFromDate($st->start_date) }}</div>
+                        <div
+                            style="display: none">{{ $year = \App\Http\Controllers\Utils::academicYearFromDate($st->start_date) }}</div>
                         <tr>
                             <td class="text-primary" style="font-weight: bold">
                                 <a href="{{route('groups.info', ["year" => $year->id, "id" => $st->group_id])}}">
@@ -74,7 +75,7 @@
                                     {{$expelReasons[$st->expel_reason_id]}}
                                 @else
                                     {{""}}
-                            @endif</td>
+                                @endif</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -99,7 +100,8 @@
                     <h5 class="modal-title">Подтвердите удаление</h5>
                 </div>
                 <div class="modal-body">
-                    <p>Вы действительно хотите удалить студента: <b>{{$student->second_name}} {{$student->first_name}} {{$student->patronymic}}</b>?</p>
+                    <p>Вы действительно хотите удалить студента:
+                        <b>{{$student->second_name}} {{$student->first_name}} {{$student->patronymic}}</b>?</p>
                     <p>Он также будет удален из всех групп в которых он находится</p>
                 </div>
                 <div class="modal-footer">

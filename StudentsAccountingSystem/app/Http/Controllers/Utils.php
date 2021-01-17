@@ -27,19 +27,17 @@ class Utils
         return date('Y-m-d', $date);
     }
 
-    public static function getInfoString($studentInfo) : string
+    public static function getInfoString($studentInfo): string
     {
         $student = StudentToGroup::where('id', $studentInfo->pivot->id)->first();
 
         $infoStr = "";
 
-        if (self::isExpelled($student))
-        {
+        if (self::isExpelled($student)) {
             $infoStr .= "Отчислен " . $student->end_date . ". ";
         }
 
-        if (self::isTransferred($student))
-        {
+        if (self::isTransferred($student)) {
             $infoStr .= "Переведён" . ". ";
         }
 
@@ -52,7 +50,8 @@ class Utils
         return StudentToGroup::where('start_date', $startDate)->where('group_id', $groupsToYear->group_id)->get();
     }
 
-    public static function academicYearFromDate($date) {
+    public static function academicYearFromDate($date)
+    {
         $parsed = date_parse($date);
 
         if ($parsed["month"] >= 9)
@@ -69,7 +68,7 @@ class Utils
         return str_replace("*", $group->grade, $group->group->pattern->pattern);
     }
 
-    public static function canBeTransferredOrExpelled(GroupsToYear $groupsToYear) : bool
+    public static function canBeTransferredOrExpelled(GroupsToYear $groupsToYear): bool
     {
         if ($groupsToYear->grade == 4)
             return false;
@@ -84,7 +83,7 @@ class Utils
         return $otherCount != 0;
     }
 
-    public static function getCountInfo(GroupsToYear $groupsToYear) : string
+    public static function getCountInfo(GroupsToYear $groupsToYear): string
     {
         $students = self::studentsForGroupAndYear($groupsToYear);
 
@@ -104,12 +103,12 @@ class Utils
         return "Переведено: " . $transferredCount . ". Отчислено: " . $expelledCount . ". Остальные: " . $otherCount . ".";
     }
 
-    public static function isTransferred(StudentToGroup $student) : bool
+    public static function isTransferred(StudentToGroup $student): bool
     {
         return $student->end_date && $student->next_group;
     }
 
-    public static function isExpelled(StudentToGroup $student) : bool
+    public static function isExpelled(StudentToGroup $student): bool
     {
         return $student->end_date && $student->expel_reason_id;
     }

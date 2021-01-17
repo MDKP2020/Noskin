@@ -18,10 +18,10 @@ class GroupsController extends Controller
 {
     public function indexPage(Request $request)
     {
-        if(empty($request->get('year_id'))) {
+        if (empty($request->get('year_id'))) {
             $current_year = date('Y');
             $current_month = date('n');
-            if($current_month > 8) {
+            if ($current_month > 8) {
                 $year_id = AcademicYear::where('start_year', '=', $current_year)->first()->id;
             } else {
                 $year_id = AcademicYear::where('start_year', '=', $current_year - 1)->first()->id;
@@ -35,7 +35,8 @@ class GroupsController extends Controller
         return view('groups.index', compact('majors', 'groups', 'grades', 'academicYears'));
     }
 
-    public function createFromForm(CreateGroup $request) {
+    public function createFromForm(CreateGroup $request)
+    {
         $validated = $request->validated();
         $group = new Group;
         $group->group_pattern_id = $validated['pattern_id'];
@@ -56,22 +57,23 @@ class GroupsController extends Controller
         return view('groups.info', compact('group', 'expelReasons', 'year_id'));
     }
 
-    public function studentPage(int $year_id, int $group_id, int $student_id) {
+    public function studentPage(int $year_id, int $group_id, int $student_id)
+    {
         $student = Student::find($student_id);
         $group = $this->getGroup($year_id, $group_id);
         $studentToGroups = StudentToGroup::where('student_id', $student_id)->get();
 
         $expelReasons = [];
 
-        foreach (ExpelReasons::all() as $expelReason)
-        {
+        foreach (ExpelReasons::all() as $expelReason) {
             $expelReasons[$expelReason->id] = $expelReason->reason;
         }
 
         return view('groups.student', compact('student', 'group', 'year_id', 'studentToGroups', 'expelReasons'));
     }
 
-    public function newStudent(int $year_id, int $id, string $errorMessage = "") {
+    public function newStudent(int $year_id, int $id, string $errorMessage = "")
+    {
         $group = $this->getGroup($year_id, $id);
         return view('groups.new-students', compact('group', 'year_id', 'id', 'errorMessage'));
     }

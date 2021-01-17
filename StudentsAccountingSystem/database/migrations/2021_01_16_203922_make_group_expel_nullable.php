@@ -13,8 +13,7 @@ class MakeGroupExpelNullable extends Migration
      */
     public function up()
     {
-        Schema::table('groups_to_years', function($table)
-        {
+        Schema::table('groups_to_years', function ($table) {
             $table->foreignId("expel_reason_id")->nullable()->change();
         });
     }

@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class StudentsController extends Controller
 {
-    public function deleteById(int $id) {
+    public function deleteById(int $id)
+    {
         StudentToGroup::where('student_id', $id)->delete();
         Student::destroy($id);
         return response()->json(["message" => "ok"]);
