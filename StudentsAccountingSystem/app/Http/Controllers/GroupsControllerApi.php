@@ -35,6 +35,14 @@ class GroupsControllerApi extends Controller
         }
         $groupId = $request['group_id'];
         $yearId = $request['year_id'];
+
+        self::transfer($groupId, $yearId, $request['select']);
+
+        return response()->json(["data" => "transfer success"]);
+    }
+
+    public static function transfer($groupId, $yearId, $students)
+    {
         $currentYear = AcademicYear::where('id', $yearId)->first();
         $nextYear = AcademicYear::where('start_year', $currentYear->start_year + 1)->firstOrCreate(['start_year' => $currentYear->start_year + 1]);
         $nextYear->save();
@@ -48,9 +56,9 @@ class GroupsControllerApi extends Controller
         );
         $nextGroup->save();
 
-        foreach ($request['select'] as $student_id) {
+        foreach ($students as $studentId) {
             $startDate = Utils::createFirstDateFromId($yearId);
-            $student = StudentToGroup::where('group_id', $groupId)->where('student_id', $student_id)->where('start_date', $startDate)->first();
+            $student = StudentToGroup::where('group_id', $groupId)->where('student_id', $studentId)->where('start_date', $startDate)->first();
             $student->next_group = $groupId;
             $student->end_date = Utils::createLastDate($currentYear);
 
@@ -62,7 +70,5 @@ class GroupsControllerApi extends Controller
             $student->save();
             $newStudent->save();
         }
-
-        return response()->json(["data" => "transfer success"]);
     }
 }
