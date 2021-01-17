@@ -108,7 +108,8 @@
                     <button class="js-transfer-modal-button btn btn-primary mr-1" data-toggle="modal"
                             data-target=".transfer_modal" disabled>Перевести группу на следующий курс
                     </button>
-                    <button class="js-expel-button btn btn-outline-dark" data-toggle="modal" data-target=".in-dev-modal"
+                    <button class="js-expel-modal-button btn btn-outline-dark" data-toggle="modal"
+                            data-target=".expel_modal"
                             disabled>Отчислить
                     </button>
                 </div>
@@ -154,11 +155,41 @@
         </div>
     </div>
 
+    <div class="modal fade expel_modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <form id="expelform">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Подтвердите действие</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Вы действительно хотите отчислить студента(ов)?</p>
+                        <ul class="js-expel-users-list list-unstyled">
+
+                        </ul>
+                        <p>Выберите причину отчисления</p>
+                        <select name="expel_reason" class="js-expel-reason-select custom-select">
+                            @foreach($expelReasons as $expelReason)
+                                <option value="{{$expelReason->id}}">{{$expelReason->reason}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                        <input type="button" class="js-expel-btn btn btn-primary" value="Подтвердить">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 @endsection
 
 @push('scripts')
     <script>
         $(document).ready(() => {
+            const canBeTransferred = {!! $canBeTransferred !!}
+
             $(".js-header-checkbox").on('click', () => {
                 const checkboxes = [];
                 $(".js-group-item").each((index, item) => {
@@ -172,8 +203,17 @@
                     if (item.checked) checkedCount++;
                 })
 
-                $(".js-transfer-modal-button")[0].disabled = checkedCount === 0
-                $(".js-expel-button")[0].disabled = checkedCount === 0
+                let anyCheckedCannotBeTransferred = false;
+                for (let checkBox of checkboxes) {
+                    const parsed = JSON.parse(checkBox.value);
+                    if (checkBox.checked && !canBeTransferred[parsed['id']])
+                        anyCheckedCannotBeTransferred = true;
+                }
+
+                console.log(anyCheckedCannotBeTransferred)
+
+                $(".js-transfer-modal-button")[0].disabled = checkedCount === 0 || anyCheckedCannotBeTransferred
+                $(".js-expel-modal-button")[0].disabled = checkedCount === 0
             });
 
             $(".js-group-item").on('click', () => {
@@ -187,8 +227,15 @@
                     if (item.checked) checkedCount++;
                 })
 
-                $(".js-transfer-modal-button")[0].disabled = checkedCount === 0
-                $(".js-expel-button")[0].disabled = checkedCount === 0
+                let anyCheckedCannotBeTransferred = false;
+                for (let checkBox of checkboxes) {
+                    const parsed = JSON.parse(checkBox.value);
+                    if (checkBox.checked && !canBeTransferred[parsed['id']])
+                        anyCheckedCannotBeTransferred = true;
+                }
+
+                $(".js-transfer-modal-button")[0].disabled = checkedCount === 0 || anyCheckedCannotBeTransferred
+                $(".js-expel-modal-button")[0].disabled = checkedCount === 0
 
                 $(".js-header-checkbox")[0].checked = checkedCount === checkboxes.length
             })
@@ -220,7 +267,6 @@
                     url: "{{route('groups.transfer')}}",
                     type: "POST",
                     data: {
-                        expel: 1,
                         year_id: {{$_GET['year_id'] ?? $academicYear[0]}},
                         select: selectedGroups.map((item) => item.id)
                     },
@@ -231,6 +277,30 @@
                     }
                 });
             })
+
+            $('.js-expel-btn').on('click', () => {
+                const selectedGroups = [];
+                $('.js-group-item').each((index, item) => {
+                    if (item.checked && !item.disabled) {
+                        selectedGroups.push(JSON.parse(item.value));
+                    }
+                })
+                console.log(selectedGroups);
+                $.ajax({
+                    url: "{{route('groups.expel')}}",
+                    type: "POST",
+                    data: {
+                        select: selectedGroups.map((item) => item.id),
+                        year_id: "{{$_GET['year_id'] ?? $academicYear[0]}}",
+                        expel_reason_id: $('.js-expel-reason-select')[0].value
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        window.location.reload();
+                    }
+                });
+            });
         })
     </script>
 @endpush

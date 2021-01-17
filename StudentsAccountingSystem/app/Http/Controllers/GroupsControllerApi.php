@@ -60,6 +60,30 @@ class GroupsControllerApi extends Controller
         return response()->json(["data" => "transfer success"]);
     }
 
+    public function expelGroups(Request $request)
+    {
+        if (empty($request['select']) || empty($request['expel_reason_id']) || empty($request['year_id'])) {
+            return response()->json(["data" => "fail"]);
+        }
+        $yearId = $request['year_id'];
+
+        foreach ($request['select'] as $group) {
+            $currentGroup = GroupsToYear::where('id', $group)->first();
+            $groupStudents = Utils::studentsForGroupAndYear($currentGroup);
+
+            $studentsToTransfer = [];
+
+            foreach ($groupStudents as $student) {
+                if (!Utils::isTransferred($student) && !Utils::isExpelled($student))
+                    array_push($studentsToTransfer, $student->student_id);
+            }
+
+            self::expel($currentGroup->group_id, $yearId, $studentsToTransfer, $request['expel_reason_id']);
+        }
+
+        return response()->json(["data" => "transfer success"]);
+    }
+
     public static function transfer($groupId, $yearId, $students)
     {
         $currentYear = AcademicYear::where('id', $yearId)->first();

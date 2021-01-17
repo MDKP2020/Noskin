@@ -32,7 +32,17 @@ class GroupsController extends Controller
         $grades = GroupsToYear::allGrades();
         $majors = Major::all();
         $academicYears = AcademicYear::all();
-        return view('groups.index', compact('majors', 'groups', 'grades', 'academicYears'));
+
+        $canBeTransferred = [];
+
+        foreach ($groups as $group) {
+            $canBeTransferred[$group->id] = Utils::canBeTransferred($group);
+        }
+
+        $canBeTransferred = json_encode($canBeTransferred);
+        $expelReasons = ExpelReasons::all();
+
+        return view('groups.index', compact('majors', 'groups', 'grades', 'academicYears', 'canBeTransferred', 'expelReasons'));
     }
 
     public function createFromForm(CreateGroup $request)

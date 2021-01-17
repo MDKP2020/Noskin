@@ -68,10 +68,23 @@ class Utils
         return str_replace("*", $group->grade, $group->group->pattern->pattern);
     }
 
-    public static function canBeTransferredOrExpelled(GroupsToYear $groupsToYear): bool
+    public static function canBeTransferred(GroupsToYear $groupsToYear): bool
     {
         if ($groupsToYear->grade == 4)
             return false;
+        $students = self::studentsForGroupAndYear($groupsToYear);
+        $otherCount = 0;
+
+        foreach ($students as $student) {
+            if (!self::isTransferred($student) && !self::isExpelled($student))
+                $otherCount++;
+        }
+
+        return $otherCount != 0;
+    }
+
+    public static function canBeTransferredOrExpelled(GroupsToYear $groupsToYear): bool
+    {
         $students = self::studentsForGroupAndYear($groupsToYear);
         $otherCount = 0;
 
